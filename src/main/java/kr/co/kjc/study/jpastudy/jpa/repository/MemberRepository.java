@@ -5,16 +5,16 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import kr.co.kjc.study.jpastudy.jpa.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
-
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa");
-    EntityManager em = emf.createEntityManager();
-    EntityTransaction transaction = em.getTransaction();
-
+    private final EntityManager entityManager;
     public Member createMember() {
+
+        EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
@@ -22,11 +22,9 @@ public class MemberRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+        } finally {
+            entityManager.close();
         }
-
-        em.flush();
-        em.close();
-        emf.close();
 
         Member member = new Member();
         return member;
