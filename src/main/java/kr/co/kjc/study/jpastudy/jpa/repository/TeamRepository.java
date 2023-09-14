@@ -16,12 +16,12 @@ public class TeamRepository {
     public Team createTeam() {
         
         Team team = new Team();
-        team.setId("everon");
+        team.setTeamId("everon");
         team.setName("에버온");
 
         entityManager.persist(team);
 
-        Team findTeam = entityManager.find(Team.class, team.getId());
+        Team findTeam = entityManager.find(Team.class, team.getTeamId());
         return findTeam;
     }
     
