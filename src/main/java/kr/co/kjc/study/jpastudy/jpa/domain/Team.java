@@ -1,20 +1,24 @@
 package kr.co.kjc.study.jpastudy.jpa.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Team {
 
     @Id
 //    @GeneratedValue
     @Column(name = "TEAMID")
-    private String id;
+    private String teamId;
 
     @Column(name = "TEAMNAME")
     private String name;
+
+    @OneToMany(targetEntity = Member.class, mappedBy = "memberTeam")
+    private List<Member> members = new ArrayList<>();
 }
