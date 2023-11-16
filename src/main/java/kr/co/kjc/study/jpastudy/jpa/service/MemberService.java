@@ -22,4 +22,8 @@ public class MemberService {
     public Member updateMemberByTeam() {
         return memberRepository.updateMemberByTeam();
     }
+
+    public void createCollection() {
+        memberRepository.createCollection();
+    }
 }

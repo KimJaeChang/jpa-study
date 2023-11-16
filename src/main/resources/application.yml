@@ -25,7 +25,7 @@ spring:
     password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
@@ -34,7 +34,7 @@ spring:
 # 로그 레벨 설정
 logging:
   level:
-    p6spy: info
+    p6spy: debug
     # hibernate 가 남기는 모든 로그가 debug모드로 설정
     # jpa hibernate가 생성하는 sql이 로거를 통해서 찍히도록 하는 설정
 #    org.hibernate.SQL: debug

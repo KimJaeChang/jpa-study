@@ -44,4 +44,10 @@ public class StudyController {
         Member result = memberService.updateMemberByTeam();
         return new ResponseEntity<Member>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/create-collection")
+    public ResponseEntity<HttpStatus> createCollection(){
+        memberService.createCollection();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

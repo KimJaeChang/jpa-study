@@ -4,6 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import kr.co.kjc.study.jpastudy.jpa.domain.Address;
+import kr.co.kjc.study.jpastudy.jpa.domain.AddressEntity;
 import kr.co.kjc.study.jpastudy.jpa.domain.Member;
 import kr.co.kjc.study.jpastudy.jpa.domain.Team;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -66,12 +69,12 @@ public class MemberRepository {
 //            transaction.begin();
 
             Member kjc = new Member();
-            kjc.setId("kjc");
+//            kjc.setId("kjc");
             kjc.setName("김재창");
             entityManager.persist(kjc);
 
             Member jjw = new Member();
-            jjw.setId("jjw");
+//            jjw.setId("jjw");
             jjw.setName("정지운");
             entityManager.persist(jjw);
 
@@ -103,5 +106,60 @@ public class MemberRepository {
 
         entityManager.persist(findMember);
         return null;
+    }
+
+    @Transactional
+    public void createCollection() {
+        Member member = new Member();
+        member.setName("member1");
+        member.setAddress(new Address("seoul", "street1", "zipcode1"));
+
+        member.getFavoriteFoods().add("치킨");
+        member.getFavoriteFoods().add("족발");
+        member.getFavoriteFoods().add("피자");
+
+//        member.getAddressHistory().add(new Address("incheon", "street2", "zipcode2"));
+//        member.getAddressHistory().add(new Address("bucheon", "street3", "zipcode3"));
+
+        member.getAddressHistory().add(new AddressEntity("incheon", "street2", "zipcode2"));
+        member.getAddressHistory().add(new AddressEntity("bucheon", "street3", "zipcode3"));
+
+        entityManager.persist(member);
+        entityManager.flush();
+        entityManager.clear();
+
+        System.out.println("\t");
+        System.out.println("===================== start ========================");
+        System.out.println("\t");
+
+        Member findMember = entityManager.find(Member.class, member.getId());
+
+        System.out.println("\t");
+        System.out.println("findMember : " + findMember);
+        System.out.println("\t");
+        System.out.println("==================== end ====================");
+        System.out.println("\t");
+
+        List<AddressEntity> addressHistory = findMember.getAddressHistory();
+        for(AddressEntity address : addressHistory) {
+            System.out.println("\t");
+            System.out.println("address : " + address.getAddress().getCity());
+            System.out.println("\t");
+        }
+
+
+        // seoul -> pusan
+//        Address a = findMember.getAddress();
+//        findMember.setAddress(new Address("pusan", a.getStreet(), a.getZipcode()));
+
+        //치킨 -> 한식
+//        findMember.getFavoriteFoods().remove("치킨");
+//        findMember.getFavoriteFoods().add("한식");
+
+        //
+        findMember.getAddressHistory().remove(new AddressEntity("incheon", "street2", "zipcode2"));
+        findMember.getAddressHistory().add(new AddressEntity("newCity1", "newStreet", "newZipcode"));
+
+
     }
 }
