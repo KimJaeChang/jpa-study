@@ -1,9 +1,6 @@
 package kr.co.kjc.study.jpastudy.jpa.repository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import kr.co.kjc.study.jpastudy.jpa.domain.Address;
 import kr.co.kjc.study.jpastudy.jpa.domain.AddressEntity;
 import kr.co.kjc.study.jpastudy.jpa.domain.Member;
@@ -18,7 +15,9 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository {
-    private final EntityManager entityManager;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional
     public Member findMember(String userId) {

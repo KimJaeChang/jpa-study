@@ -1,6 +1,7 @@
 package kr.co.kjc.study.jpastudy.jpa.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import kr.co.kjc.study.jpastudy.jpa.domain.Team;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -9,8 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @RequiredArgsConstructor
 public class TeamRepository {
-    
-    private final EntityManager entityManager;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional
     public Team createTeam() {
