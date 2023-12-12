@@ -37,20 +37,48 @@
         + @Column : 컬럼 매핑
             + name : 컬럼명 직접 매핑 가능
         + @Enumerrated : EnumType 매핑
-            + EnumType.ORDINAL : enum 순서를 DB에 저장, defalut
+            + EnumType.ORDINAL : enum 순서를 DB에 저장, default
             + EnumType.STRING : enum 이름을 DB에 저장
         + @Temporal : sql의 DateType 매핑
             + LocalDate, LocalDateTime : Java8 부터 매핑 가능
     + ### 단방향 연관관계
-        + 방향(Direaction) : 단방향, 양방향
-        + 다중성(Multiplicitiy) : 다대일(N:1), 일대다(1:N), 일대일(1:1)
-        + 연관관계의 주인(Owner) : 객체 양방향 연관관계는 관리가 필요
+      + ![img.png](images/MultiAndOne.png)
+        + 설명 :
+          + 방향(Direaction) : 단방향, 양방향
+          + 다중성(Multiplicitiy) : 다대일(N:1), 일대다(1:N), 일대일(1:1)
+          + 연관관계의 주인(Owner) : 객체 양방향 연관관계는 관리가 필요
+          + 애노테이션
+            + Multi Entity 매핑 기준 (MultiAndOneMember.class)
+              + @ManyToOne : 다대일 매핑 사용
+              + @JoinColumn : 매핑 할 컬럼 정의
     + ### 양방향 연관관계
-        + 객체 연관관계 : 2개
-            + Member -> Team 연관관계 1개
-            + Team -> Member 연관관계 1개
-        + 테이블 연관관계 : 1개
-            + Member <-> Team 연관관계 1개
+      + ![img.png](images/MultiAndMulti.png)
+        + 객체 연관관계 = 2개
+            + 회원 -> 팀 연관관계 1개(단방향)
+            + 팀 -> 회원 연관관계 1개(단방향)
+        + 테이블 연관관계 = 1개
+            + 회원 <-> 팀 연관관계 1개 (양방향)
+        + 양방향 매핑 규칙
+          + 객체의 두 관계중 하나를 연관관계의 주인으로 지정
+            + <U>**외래키**</U>가 있는 곳이 주인
+            + ![img.png](images/MultiAndMultiOwner.png)
+          + <U>**연관관계의 주인만이 외래 키를 관리(등록 수정)**</U>
+          + <U>**주인이 아닌 쪽은 읽기만 가능**</U>
+          + 주인은 mappedBy 속성 사용 X
+          + 주인이 안니면 mappedBy 속성으로 주인 지정
+        + 설명 :
+          + 객체 연관관계 : 2개
+            + MultiAndMultiMember -> MultiAndMultiTeam 연관관계 1개
+            + MultiAndMultiTeam -> MultiAndMultiMember 연관관계 1개
+            + 애노테이션
+              + Multi Entity 매핑 기준 (MultiAndOneMember.class)
+                + @ManyToOne : 다대일 매핑 사용
+                + @JoinColumn : 매핑 할 컬럼 정의
+              + Multi Entity 매핑 받는 기준 (MultiAndMultiTeam.class)
+                + @OneToMany(mappedBy = "multiAndMultiTeam") : 
+                  + MultiAndOneMember에 <U>**multiAndMultiTeam**</U> 변수로 선언된 값 mappedBy 매핑 필요
+          + 테이블 연관관계 : 1개
+              + Member <-> Team 연관관계 1개
 
     + ### 값 타입 컬렉션
         + 값 타입을 하나 이상 저장할 때 사용

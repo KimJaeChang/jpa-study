@@ -17,8 +17,8 @@ public class MultiAndOneMember {
     @Column(name = "MULTI_AND_ONE_USERNAME")
     private String username;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "MULTI_AND_ONE_TEAM_ID")
-    private MultiAndOneTeam team;
+    private MultiAndOneTeam multiAndOneTeam;
 
 }

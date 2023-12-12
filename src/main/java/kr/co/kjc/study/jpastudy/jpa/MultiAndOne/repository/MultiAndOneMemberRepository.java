@@ -24,11 +24,14 @@ public class MultiAndOneMemberRepository {
 
         MultiAndOneMember member = new MultiAndOneMember();
         member.setUsername("member1");
-        member.setTeam(team);
+        member.setMultiAndOneTeam(team);
         em.persist(member);
 
+        em.flush();
+        em.clear();
+
         MultiAndOneMember findMember = em.find(MultiAndOneMember.class, member.getId());
-        MultiAndOneTeam findTeam = findMember.getTeam();
+        MultiAndOneTeam findTeam = findMember.getMultiAndOneTeam();
 
         System.out.println("findTeam = " + findTeam.getId());
     }
