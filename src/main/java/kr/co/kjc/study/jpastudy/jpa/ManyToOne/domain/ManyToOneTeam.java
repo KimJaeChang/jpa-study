@@ -1,4 +1,4 @@
-package kr.co.kjc.study.jpastudy.jpa.MultiAndOne.domain;
+package kr.co.kjc.study.jpastudy.jpa.ManyToOne.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,14 +10,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class MultiAndOneTeam {
+public class ManyToOneTeam {
 
     @Id
     @GeneratedValue
-    @Column(name = "MULTI_AND_ONE_TEAM_ID")
+    @Column(name = "MANY_TO_ONE_TEAM_ID")
     private Long id;
 
-    @Column(name = "MULTI_AND_ONE_TEAM_NAME")
+    @Column(name = "MANY_TO_ONE_TEAM_NAME")
     private String name;
 
 }

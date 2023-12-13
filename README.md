@@ -41,55 +41,67 @@
             + EnumType.STRING : enum 이름을 DB에 저장
         + @Temporal : sql의 DateType 매핑
             + LocalDate, LocalDateTime : Java8 부터 매핑 가능
-    + ### 단방향 연관관계
-      + ![img.png](images/MultiAndOne.png)
-        + 설명 :
-          + 방향(Direaction) : 단방향, 양방향
-          + 다중성(Multiplicitiy) : 다대일(N:1), 일대다(1:N), 일대일(1:1)
-          + 연관관계의 주인(Owner) : 객체 양방향 연관관계는 관리가 필요
-          + 애노테이션
-            + Multi Entity 매핑 기준 (MultiAndOneMember.class)
-              + @ManyToOne : 다대일 매핑 사용
-              + @JoinColumn : 매핑 할 컬럼 정의
-    + ### 양방향 연관관계
-      + ![img.png](images/MultiAndMulti.png)
-        + 객체 연관관계 = 2개
-            + 회원 -> 팀 연관관계 1개(단방향)
-            + 팀 -> 회원 연관관계 1개(단방향)
-        + 테이블 연관관계 = 1개
-            + 회원 <-> 팀 연관관계 1개 (양방향)
-        + 양방향 매핑 규칙
-          + 객체의 두 관계중 하나를 연관관계의 주인으로 지정
-            + <U>**외래키**</U>가 있는 곳이 주인
-            + ![img.png](images/MultiAndMultiOwner.png)
-          + <U>**연관관계의 주인만이 외래 키를 관리(등록 수정)**</U>
-          + <U>**주인이 아닌 쪽은 읽기만 가능**</U>
-          + 주인은 mappedBy 속성 사용 X
-          + 주인이 안니면 mappedBy 속성으로 주인 지정
-          + 양방향 매핑시 연관관계의 주인에 값을 입략헤애 힌다.
-            + <U>**mappedBy 속성으로된 필드에 값을 입력시 insert 쿼리 적용X**</U>
-          + 무한루프를 조심하자
-            + 예) toString(), lombok, JSON 생성 라이브러리, Controller에서 Entity 반환 금지
-          + MultiAndMultiMember.changeMultiAndMultiTeam() 처럼 양방향 연관관계 편의 메소드를 지정하면 편하다.
-        + 설명 :
-          + 객체 연관관계 : 2개
-            + MultiAndMultiMember -> MultiAndMultiTeam 연관관계 1개
-            + MultiAndMultiTeam -> MultiAndMultiMember 연관관계 1개
-            + 애노테이션
-              + Multi Entity 매핑 기준 (MultiAndOneMember.class)
-                + @ManyToOne : 다대일 매핑 사용
-                + @JoinColumn : 매핑 할 컬럼 정의
-              + Multi Entity 매핑 받는 기준 (MultiAndMultiTeam.class)
-                + @OneToMany(mappedBy = "multiAndMultiTeam") : 
-                  + MultiAndOneMember에 <U>**multiAndMultiTeam**</U> 변수로 선언된 값 mappedBy 매핑 필요
-          + 테이블 연관관계 : 1개
-              + Member <-> Team 연관관계 1개
-        + 정리 :
-          + <U>**단방향 매핑만으로도 이미 연관관계 매핑은 완료**</U>
-          + 양방향 매핑은 반대방향으로 조회(객체 그래프 탐색) 기능이 추가가된 것 뿐
-          + JPQL에서 역방향으로 탐색할 일이 많음
-          + 단방향 매핑을 잘 하고 양방향은 필요할 떄 추가해도 됨(테이블에 영향을 주지 않음)
-
+    + ### 연관관계 매핑
+      + 설명 :
+        + ### 단방향 연관관계
+          + ![img.png](images/ManyToOne.png)
+            + 설명 :
+              + 방향(Direaction) : 단방향, 양방향
+              + 다중성(Multiplicitiy) : 다대일(N:1), 일대다(1:N), 일대일(1:1)
+              + 연관관계의 주인(Owner) : 객체 양방향 연관관계는 관리가 필요
+              + 애노테이션
+                + Multi Entity 매핑 기준 (ManyToOneMember.class)
+                  + @ManyToOne : 다대일 매핑 사용
+                  + @JoinColumn : 매핑 할 컬럼 정의
+        + ### 양방향 연관관계
+          + ![img.png](images/ManyToMany.png)
+            + 객체 연관관계 = 2개
+                + 회원 -> 팀 연관관계 1개(단방향)
+                + 팀 -> 회원 연관관계 1개(단방향)
+            + 테이블 연관관계 = 1개
+                + 회원 <-> 팀 연관관계 1개 (양방향)
+            + 양방향 매핑 규칙
+              + 객체의 두 관계중 하나를 연관관계의 주인으로 지정
+                + <U>**외래키**</U>가 있는 곳이 주인
+                + ![img.png](images/ManyToManyOwner.png)
+              + <U>**연관관계의 주인만이 외래 키를 관리(등록 수정)**</U>
+              + <U>**주인이 아닌 쪽은 읽기만 가능**</U>
+              + 주인은 mappedBy 속성 사용 X
+              + 주인이 안니면 mappedBy 속성으로 주인 지정
+              + 양방향 매핑시 연관관계의 주인에 값을 입략헤애 힌다.
+                + <U>**mappedBy 속성으로된 필드에 값을 입력시 insert 쿼리 적용X**</U>
+              + 무한루프를 조심하자
+                + 예) toString(), lombok, JSON 생성 라이브러리, Controller에서 Entity 반환 금지
+              + ManyToManyMember.changeManyToManyTeam() 처럼 양방향 연관관계 편의 메소드를 지정하면 편하다.
+            + 설명 :
+              + 객체 연관관계 : 2개
+                + ManyToManyMember -> ManyToManyTeam 연관관계 1개
+                + ManyToManyTeam -> ManyToManyMember 연관관계 1개
+                + 애노테이션
+                  + Many Entity 매핑 기준 (ManyToOneMember.class)
+                    + @ManyToOne : 다대일 매핑 사용
+                    + @JoinColumn : 매핑 할 컬럼 정의
+                  + Many Entity 매핑 받는 기준 (ManyToManyTeam.class)
+                    + @OneToMany(mappedBy = "manyToManyTeam") : 
+                      + ManyToOneMember에 <U>**changeManyToManyTeam**</U> 변수로 선언된 값 mappedBy 매핑 필요
+              + 테이블 연관관계 : 1개
+                  + Member <-> Team 연관관계 1개
+            + 정리 :
+              + <U>**단방향 매핑만으로도 이미 연관관계 매핑은 완료**</U>
+              + 양방향 매핑은 반대방향으로 조회(객체 그래프 탐색) 기능이 추가가된 것 뿐
+              + JPQL에서 역방향으로 탐색할 일이 많음
+              + 단방향 매핑을 잘 하고 양방향은 필요할 떄 추가해도 됨(테이블에 영향을 주지 않음)
+      + 종류 :
+        + 다대일 [N:1] : @ManyToOne     
+          + 외래키가 있는곳에 참조를 걸면된다.
+          + kr.co.kjc.tudy.jpastudy.ManyToOne 패키지 참조
+            + ![img.png](images/ManyToOneV2.png)
+        + 일대다 [1:N] : @OneToMany     
+          + kr.co.kjc.tudy.jpastudy.OneToMany 패키지 참조
+            + ![img.png](OneAndMultiV2/img.png)
+        + 일대일 [1:1] : @OneToOne     
+        + 다대다 [N:N] : @ManyToMany - <U>**실무에선 쓰면 안된다!**</U>
+ 
     + ### 값 타입 컬렉션
         + 값 타입을 하나 이상 저장할 때 사용
         + @ElementCollection, @CollectionTable 필수

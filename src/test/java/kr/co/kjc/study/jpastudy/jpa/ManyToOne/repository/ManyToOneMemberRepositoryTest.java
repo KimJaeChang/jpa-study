@@ -1,26 +1,23 @@
-package kr.co.kjc.study.jpastudy.jpa.MultiAndOne.repository;
+package kr.co.kjc.study.jpastudy.jpa.ManyToOne.repository;
 
-import kr.co.kjc.study.jpastudy.jpa.MultiAndOne.service.MultiAndOneMemberService;
+import kr.co.kjc.study.jpastudy.jpa.ManyToOne.service.ManyToOneMemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class MultiAndOneMemberRepositoryTest {
+class ManyToOneMemberRepositoryTest {
 
     @Autowired
-    private MultiAndOneMemberService multiAndOneMemberService;
+    private ManyToOneMemberService manyToOneMemberService;
 
     @Test
     @DisplayName("다대일 연관관계 매핑")
     @Rollback(value = false)
     void createMemberAndTeam() {
-        multiAndOneMemberService.createMemberAndTeam();
+        manyToOneMemberService.createMemberAndTeam();
     }
 
 }

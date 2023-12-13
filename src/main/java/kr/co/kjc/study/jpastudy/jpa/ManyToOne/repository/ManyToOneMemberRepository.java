@@ -1,16 +1,16 @@
-package kr.co.kjc.study.jpastudy.jpa.MultiAndOne.repository;
+package kr.co.kjc.study.jpastudy.jpa.ManyToOne.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import kr.co.kjc.study.jpastudy.jpa.MultiAndOne.domain.MultiAndOneMember;
-import kr.co.kjc.study.jpastudy.jpa.MultiAndOne.domain.MultiAndOneTeam;
+import kr.co.kjc.study.jpastudy.jpa.ManyToOne.domain.ManyToOneMember;
+import kr.co.kjc.study.jpastudy.jpa.ManyToOne.domain.ManyToOneTeam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
-public class MultiAndOneMemberRepository {
+public class ManyToOneMemberRepository {
 
     @PersistenceContext
     private EntityManager em;
@@ -18,20 +18,20 @@ public class MultiAndOneMemberRepository {
     @Transactional
     public void createMemberAndTeam() {
 
-        MultiAndOneTeam team = new MultiAndOneTeam();
+        ManyToOneTeam team = new ManyToOneTeam();
         team.setName("TeamA");
         em.persist(team);
 
-        MultiAndOneMember member = new MultiAndOneMember();
+        ManyToOneMember member = new ManyToOneMember();
         member.setUsername("member1");
-        member.setMultiAndOneTeam(team);
+        member.setManyToOneTeam(team);
         em.persist(member);
 
         em.flush();
         em.clear();
 
-        MultiAndOneMember findMember = em.find(MultiAndOneMember.class, member.getId());
-        MultiAndOneTeam findTeam = findMember.getMultiAndOneTeam();
+        ManyToOneMember findMember = em.find(ManyToOneMember.class, member.getId());
+        ManyToOneTeam findTeam = findMember.getManyToOneTeam();
 
         System.out.println("findTeam = " + findTeam.getId());
     }
