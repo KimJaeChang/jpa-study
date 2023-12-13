@@ -98,7 +98,7 @@
             + ![img.png](images/ManyToOneV2.png)
         + 일대다 [1:N] : @OneToMany     
           + kr.co.kjc.tudy.jpastudy.OneToMany 패키지 참조
-            + ![img.png](OneAndMultiV2/img.png)
+            + ![img.png](images/OneToMany.png)
         + 일대일 [1:1] : @OneToOne     
         + 다대다 [N:N] : @ManyToMany - <U>**실무에선 쓰면 안된다!**</U>
  
