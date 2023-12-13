@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TeamRepository {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @Transactional
     public Team createTeam() {
@@ -21,9 +21,9 @@ public class TeamRepository {
         team.setTeamId("everon");
         team.setName("에버온");
 
-        entityManager.persist(team);
+        em.persist(team);
 
-        Team findTeam = entityManager.find(Team.class, team.getTeamId());
+        Team findTeam = em.find(Team.class, team.getTeamId());
         return findTeam;
     }
     

@@ -17,7 +17,7 @@ import java.util.List;
 public class MemberRepository {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @Transactional
     public Member findMember(String userId) {
@@ -25,7 +25,7 @@ public class MemberRepository {
         // 1. 분명 Member의 Team은 Lazy인데 왜 team이 select 되어지지?
         // 2. 아하 Team의 oneToMany를 지정 안 해주면 Lazy로딩이 적용되지 않는다.!!!
         // 3. ToString을 쓰면 lazy로딩이 적용되지 않는다.
-        Member findMember = entityManager.find(Member.class, userId);
+        Member findMember = em.find(Member.class, userId);
         System.out.println("\t");
         System.out.println("findMember.id : " + findMember.getId());
         System.out.println("findMember.name : " + findMember.getName());
@@ -70,15 +70,15 @@ public class MemberRepository {
             Member kjc = new Member();
 //            kjc.setId("kjc");
             kjc.setName("김재창");
-            entityManager.persist(kjc);
+            em.persist(kjc);
 
             Member jjw = new Member();
 //            jjw.setId("jjw");
             jjw.setName("정지운");
-            entityManager.persist(jjw);
+            em.persist(jjw);
 
-            Member findKjc = entityManager.find(Member.class, kjc.getId());
-            Member findJjw = entityManager.find(Member.class, jjw.getId());
+            Member findKjc = em.find(Member.class, kjc.getId());
+            Member findJjw = em.find(Member.class, jjw.getId());
 
             System.out.println("\t");
             System.out.println("findKjc : " + findKjc);
@@ -91,7 +91,7 @@ public class MemberRepository {
         } catch (Exception e) {
 //            transaction.rollback();
         } finally {
-            entityManager.close();
+            em.close();
         }
 
         return null;
@@ -99,11 +99,11 @@ public class MemberRepository {
 
     @Transactional
     public Member updateMemberByTeam() {
-        Team findTeam = entityManager.find(Team.class, "everon");
-        Member findMember = entityManager.find(Member.class, "kjc");
+        Team findTeam = em.find(Team.class, "everon");
+        Member findMember = em.find(Member.class, "kjc");
         findMember.setMemberTeam(findTeam);
 
-        entityManager.persist(findMember);
+        em.persist(findMember);
         return null;
     }
 
@@ -123,15 +123,15 @@ public class MemberRepository {
         member.getAddressHistory().add(new AddressEntity("incheon", "street2", "zipcode2"));
         member.getAddressHistory().add(new AddressEntity("bucheon", "street3", "zipcode3"));
 
-        entityManager.persist(member);
-        entityManager.flush();
-        entityManager.clear();
+        em.persist(member);
+        em.flush();
+        em.clear();
 
         System.out.println("\t");
         System.out.println("===================== start ========================");
         System.out.println("\t");
 
-        Member findMember = entityManager.find(Member.class, member.getId());
+        Member findMember = em.find(Member.class, member.getId());
 
         System.out.println("\t");
         System.out.println("findMember : " + findMember);
