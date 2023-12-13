@@ -66,6 +66,11 @@
           + <U>**주인이 아닌 쪽은 읽기만 가능**</U>
           + 주인은 mappedBy 속성 사용 X
           + 주인이 안니면 mappedBy 속성으로 주인 지정
+          + 양방향 매핑시 연관관계의 주인에 값을 입략헤애 힌다.
+            + <U>**mappedBy 속성으로된 필드에 값을 입력시 insert 쿼리 적용X**</U>
+          + 무한루프를 조심하자
+            + 예) toString(), lombok, JSON 생성 라이브러리, Controller에서 Entity 반환 금지
+          + MultiAndMultiMember.changeMultiAndMultiTeam() 처럼 양방향 연관관계 편의 메소드를 지정하면 편하다.
         + 설명 :
           + 객체 연관관계 : 2개
             + MultiAndMultiMember -> MultiAndMultiTeam 연관관계 1개
@@ -79,6 +84,11 @@
                   + MultiAndOneMember에 <U>**multiAndMultiTeam**</U> 변수로 선언된 값 mappedBy 매핑 필요
           + 테이블 연관관계 : 1개
               + Member <-> Team 연관관계 1개
+        + 정리 :
+          + <U>**단방향 매핑만으로도 이미 연관관계 매핑은 완료**</U>
+          + 양방향 매핑은 반대방향으로 조회(객체 그래프 탐색) 기능이 추가가된 것 뿐
+          + JPQL에서 역방향으로 탐색할 일이 많음
+          + 단방향 매핑을 잘 하고 양방향은 필요할 떄 추가해도 됨(테이블에 영향을 주지 않음)
 
     + ### 값 타입 컬렉션
         + 값 타입을 하나 이상 저장할 때 사용
