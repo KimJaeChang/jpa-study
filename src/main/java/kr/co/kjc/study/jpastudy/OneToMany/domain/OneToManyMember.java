@@ -18,4 +18,7 @@ public class OneToManyMember {
     @Column(name = "ONE_TO_MANY_USERNAME")
     private String username;
 
+    @ManyToOne
+    @JoinColumn(name = "ONE_TO_MANY_TEAM_ID", insertable = false, updatable = false)   // 일대다 양방향 시 insertable, updatable 필수! (읽기 전용)
+    private OneToManyTeam oneToManyTeam;
 }
