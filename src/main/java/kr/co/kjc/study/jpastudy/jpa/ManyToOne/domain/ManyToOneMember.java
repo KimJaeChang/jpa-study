@@ -1,7 +1,6 @@
 package kr.co.kjc.study.jpastudy.jpa.ManyToOne.domain;
 
 import jakarta.persistence.*;
-import kr.co.kjc.study.jpastudy.jpa.ManyToMany.domain.ManyToManyTeam;
 import lombok.Getter;
 import lombok.Setter;
 

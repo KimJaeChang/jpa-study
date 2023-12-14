@@ -1,11 +1,11 @@
-package kr.co.kjc.study.jpastudy.jpa.ManyToMany.domain;
+package kr.co.kjc.study.jpastudy.jpa.ManyToMany.overcome.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,4 +20,6 @@ public class ManyToManyProduct {
     @Column(name = "MANY_TO_MANY_PRODUCT_USERNAME")
     private String username;
 
+    @OneToMany(mappedBy = "manyToManyMember")
+    private List<ManyToManyMemberProduct> manyToManyMembers = new ArrayList<>();
 }

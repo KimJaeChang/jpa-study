@@ -1,4 +1,4 @@
-package kr.co.kjc.study.jpastudy.jpa.ManyToMany.domain;
+package kr.co.kjc.study.jpastudy.jpa.ManyToMany.overcome.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,7 +20,6 @@ public class ManyToManyMember {
     @Column(name = "MANY_TO_MANY_MEMBER_USERNAME")
     private String username;
 
-    @ManyToMany
-    @JoinTable(name = "MEMBER_PRODUCTS")
-    private List<ManyToManyProduct> products = new ArrayList<>();
+    @OneToMany(mappedBy = "manyToManyProduct")
+    private List<ManyToManyMemberProduct> manyToManyProducts = new ArrayList<>();
 }

@@ -1,14 +1,12 @@
-package kr.co.kjc.study.jpastudy.jpa.ManyToMany.repository;
+package kr.co.kjc.study.jpastudy.jpa.ManyToMany.disadvantage.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import kr.co.kjc.study.jpastudy.jpa.ManyToMany.domain.ManyToManyMember;
-import kr.co.kjc.study.jpastudy.jpa.ManyToMany.domain.ManyToManyTeam;
+import kr.co.kjc.study.jpastudy.jpa.ManyToMany.disadvantage.domain.ManyToManyBeforeMember;
+import kr.co.kjc.study.jpastudy.jpa.ManyToMany.disadvantage.domain.ManyToManyTeam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -24,7 +22,7 @@ public class ManyToManyMemberRepository {
         team.setName("TeamA");
         em.persist(team);
 
-        ManyToManyMember member = new ManyToManyMember();
+        ManyToManyBeforeMember member = new ManyToManyBeforeMember();
         member.setUsername("member1");
 
         em.persist(member);

@@ -94,7 +94,7 @@
       + 종류 :
         + 다대일 [N:1] : @ManyToOne     
           + 외래키가 있는곳에 참조를 걸면된다.
-          + kr.co.kjc.tudy.jpastudy.ManyToOne 패키지 참조
+          + kr.co.kjc.study.jpastudy.ManyToOne 패키지 참조
             + ![img.png](images/ManyToOneV2.png)
         + 일대다 [1:N] : @OneToMany     
           + 일대다 단방향은 일대다(1:N)에서 <U>**일(1)이 연관관계의 주인**</U>
@@ -105,7 +105,7 @@
             + 엔티티가 관리하는 외래 키가 다른 테이블에 있음
             + 연관관계 관리를 위해 추가로 UPDATE SQL 실행
             + 일대다 단방향 매핑보다는 <U>**다대일 양방향 매핑**</U>을 사용하자.
-          + kr.co.kjc.tudy.jpastudy.OneToMany 패키지 참조
+          + kr.co.kjc.study.jpastudy.OneToMany 패키지 참조
             + ![img.png](images/OneToMany.png)
         + 일대일 [1:1] : @OneToOne     
           + 일대일 관계는 그 반대도 일대일
@@ -125,13 +125,16 @@
               + 전통적인 데이터베이스 개발자 선호
               + 장점 : 주 테이블과 대상 테이블을 일대일에서 일대다 관계로 변경할 때 테이블 유지
               + 단점 : 프록시 기능의 한계로 <U>**지연 로딩으로 설정해도 항상 즉시 로딩 됨**</U>
-          + kr.co.kjc.tudy.jpastudy.OneToOne 패키지 참조
+          + kr.co.kjc.study.jpastudy.OneToOne 패키지 참조
             + ![img.png](images/OneToOne.png)
         + 다대다 [N:N] : @ManyToMany - <U>**실무에선 쓰면 안된다!**</U>
           + @JoinTable로 연결 테이블 지정 
-          + kr.co.kjc.tudy.jpastudy.OneToOne 패키지 참조
-            + ㄴㅁ
+          + kr.co.kjc.study.jpastudy.ManyToMany 패키지 참조
             + ![img.png](images/ManyToManyV2.png)
+          + 다대다 매핑의 한계
+            + ![img.png](images/ManyToManyDisadvantage.png)
+          + 다대다 매핑의 한계 극복 (ManyToManyMemberProduct.class)
+            + ![img.png](images/ManyToManyOverCome.png)
  
     + ### 값 타입 컬렉션
         + 값 타입을 하나 이상 저장할 때 사용

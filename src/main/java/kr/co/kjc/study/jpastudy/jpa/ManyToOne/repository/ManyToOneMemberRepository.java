@@ -2,7 +2,6 @@ package kr.co.kjc.study.jpastudy.jpa.ManyToOne.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import kr.co.kjc.study.jpastudy.jpa.ManyToMany.domain.ManyToManyMember;
 import kr.co.kjc.study.jpastudy.jpa.ManyToOne.domain.ManyToOneMember;
 import kr.co.kjc.study.jpastudy.jpa.ManyToOne.domain.ManyToOneTeam;
 import lombok.RequiredArgsConstructor;

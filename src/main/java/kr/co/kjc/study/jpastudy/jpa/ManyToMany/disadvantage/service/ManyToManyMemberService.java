@@ -1,6 +1,6 @@
-package kr.co.kjc.study.jpastudy.jpa.ManyToMany.service;
+package kr.co.kjc.study.jpastudy.jpa.ManyToMany.disadvantage.service;
 
-import kr.co.kjc.study.jpastudy.jpa.ManyToMany.repository.ManyToManyMemberRepository;
+import kr.co.kjc.study.jpastudy.jpa.ManyToMany.disadvantage.repository.ManyToManyMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
