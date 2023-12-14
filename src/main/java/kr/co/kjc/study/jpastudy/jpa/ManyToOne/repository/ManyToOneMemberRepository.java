@@ -2,11 +2,14 @@ package kr.co.kjc.study.jpastudy.jpa.ManyToOne.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import kr.co.kjc.study.jpastudy.jpa.ManyToMany.domain.ManyToManyMember;
 import kr.co.kjc.study.jpastudy.jpa.ManyToOne.domain.ManyToOneMember;
 import kr.co.kjc.study.jpastudy.jpa.ManyToOne.domain.ManyToOneTeam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -24,15 +27,24 @@ public class ManyToOneMemberRepository {
 
         ManyToOneMember member = new ManyToOneMember();
         member.setUsername("member1");
-        member.setManyToOneTeam(team);
+        member.changeManyToManyTeam(team);          // 양방향 매핑할 땐 양쪽에다가 값을 세팅하는게 낫다.
+        // ManyToManyMember.changeManyToManyTeam 처럼 연관관계 편의 메소드를 지정하면 관리하기 편한다
+        em.persist(member);
+
+//        team.setManyToManyMembers().add(member); // 양방향 매핑할 땐 양쪽에다가 값을 세팅하는게 낫다.;
         em.persist(member);
 
         em.flush();
         em.clear();
 
         ManyToOneMember findMember = em.find(ManyToOneMember.class, member.getId());
-        ManyToOneTeam findTeam = findMember.getManyToOneTeam();
+        List<ManyToOneMember> members = findMember.getManyToOneTeam().getManyToOneMembers();
 
-        System.out.println("findTeam = " + findTeam.getId());
+        System.out.println("===================================");
+        for(ManyToOneMember manyToOneMember : members) {
+            System.out.println("manyToOneMember = " + manyToOneMember.getUsername());
+        }
+        System.out.println("===================================");
+
     }
 }

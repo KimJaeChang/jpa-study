@@ -17,13 +17,4 @@ public class ManyToManyMember {
     @Column(name = "MANY_TO_MANY_USERNAME")
     private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "MANY_TO_MANY_TEAM_ID")
-    private ManyToManyTeam manyToManyTeam;
-
-    public void changeManyToManyTeam(ManyToManyTeam manyToManyTeam) { // 양방향 매핑시 연관관계 편의 메소드를 생성
-        this.manyToManyTeam = manyToManyTeam;
-        manyToManyTeam.getManyToManyMembers().add(this);  // join된 ManyToManyTeam에도 값을 넣어줘야 하기 때문
-    }
-
 }

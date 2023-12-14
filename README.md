@@ -129,6 +129,9 @@
             + ![img.png](images/OneToOne.png)
         + 다대다 [N:N] : @ManyToMany - <U>**실무에선 쓰면 안된다!**</U>
           + @JoinTable로 연결 테이블 지정 
+          + kr.co.kjc.tudy.jpastudy.OneToOne 패키지 참조
+            + ㄴㅁ
+            + ![img.png](images/ManyToManyV2.png)
  
     + ### 값 타입 컬렉션
         + 값 타입을 하나 이상 저장할 때 사용

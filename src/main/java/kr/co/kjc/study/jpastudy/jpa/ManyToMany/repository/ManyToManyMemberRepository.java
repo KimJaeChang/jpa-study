@@ -26,23 +26,12 @@ public class ManyToManyMemberRepository {
 
         ManyToManyMember member = new ManyToManyMember();
         member.setUsername("member1");
-        member.changeManyToManyTeam(team);          // 양방향 매핑할 땐 양쪽에다가 값을 세팅하는게 낫다.
-                                                       // ManyToManyMember.changeManyToManyTeam 처럼 연관관계 편의 메소드를 지정하면 관리하기 편한다
+
         em.persist(member);
-
-//        team.setManyToManyMembers().add(member); // 양방향 매핑할 땐 양쪽에다가 값을 세팅하는게 낫다.
-
 
         em.flush();
         em.clear();
 
-        ManyToManyMember findMember = em.find(ManyToManyMember.class, member.getId());
-        List<ManyToManyMember> members = findMember.getManyToManyTeam().getManyToManyMembers();
 
-        System.out.println("===================================");
-        for(ManyToManyMember manyToManyMember : members) {
-            System.out.println("manyToManyMember = " + manyToManyMember.getUsername());
-        }
-        System.out.println("===================================");
     }
 }

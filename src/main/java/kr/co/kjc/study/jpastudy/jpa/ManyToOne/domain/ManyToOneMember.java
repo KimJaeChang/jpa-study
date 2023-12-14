@@ -1,6 +1,7 @@
 package kr.co.kjc.study.jpastudy.jpa.ManyToOne.domain;
 
 import jakarta.persistence.*;
+import kr.co.kjc.study.jpastudy.jpa.ManyToMany.domain.ManyToManyTeam;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +21,10 @@ public class ManyToOneMember {
     @ManyToOne
     @JoinColumn(name = "MANY_TO_ONE_TEAM_ID")
     private ManyToOneTeam manyToOneTeam;
+
+    public void changeManyToManyTeam(ManyToOneTeam manyToOneTeam) { // 양방향 매핑시 연관관계 편의 메소드를 생성
+        this.manyToOneTeam = manyToOneTeam;
+        manyToOneTeam.getManyToOneMembers().add(this);  // join된 ManyToOneTeam에도 값을 넣어줘야 하기 때문
+    }
 
 }
