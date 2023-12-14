@@ -18,5 +18,6 @@ public class OneToOneMember {
     private String username;
 
     @OneToOne
+    @JoinColumn(name = "ONE_TO_ONE_LOCKER_ID")
     private OneToOneLocker oneToOneLocker;
 }

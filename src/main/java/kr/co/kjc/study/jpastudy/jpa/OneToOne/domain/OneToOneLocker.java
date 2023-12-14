@@ -17,6 +17,6 @@ public class OneToOneLocker {
     @Column(name = "ONE_TO_ONE_LOCKER_NAME")
     private String name;
 
-    @OneToOne
+    @OneToOne(mappedBy = "oneToOneLocker")
     private OneToOneMember oneToOneMember;
 }
