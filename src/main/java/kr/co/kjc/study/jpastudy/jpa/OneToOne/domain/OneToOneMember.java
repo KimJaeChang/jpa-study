@@ -12,12 +12,11 @@ public class OneToOneMember {
     @Id
     @GeneratedValue
     @Column(name = "ONE_TO_ONE_MEMBER_ID")
-    private Long id;
+    private Long oneToOneMemberId;
 
-    @Column(name = "ONE_TO_ONE_USERNAME")
+    @Column(name = "ONE_TO_ONE_MEMBER_USERNAME")
     private String username;
 
     @OneToOne
-    @JoinColumn(name = "ONE_TO_ONE_LOCKER_ID")
     private OneToOneLocker oneToOneLocker;
 }

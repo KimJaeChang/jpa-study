@@ -37,7 +37,7 @@ public class ManyToOneMemberRepository {
         em.flush();
         em.clear();
 
-        ManyToOneMember findMember = em.find(ManyToOneMember.class, member.getId());
+        ManyToOneMember findMember = em.find(ManyToOneMember.class, member.getManyToOneMemberId());
         List<ManyToOneMember> members = findMember.getManyToOneTeam().getManyToOneMembers();
 
         System.out.println("===================================");

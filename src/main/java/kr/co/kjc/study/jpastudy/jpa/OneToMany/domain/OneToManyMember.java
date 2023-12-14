@@ -12,9 +12,9 @@ public class OneToManyMember {
     @Id
     @GeneratedValue
     @Column(name = "ONE_TO_MANY_MEMBER_ID")
-    private Long id;
+    private Long oneToManyMemberId;
 
-    @Column(name = "ONE_TO_MANY_USERNAME")
+    @Column(name = "ONE_TO_MANY_MEMBER_USERNAME")
     private String username;
 
     @ManyToOne

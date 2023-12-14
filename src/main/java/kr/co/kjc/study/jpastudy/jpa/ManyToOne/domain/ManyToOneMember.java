@@ -13,9 +13,9 @@ public class ManyToOneMember {
     @Id
     @GeneratedValue
     @Column(name = "MANY_TO_ONE_MEMBER_ID")
-    private Long id;
+    private Long manyToOneMemberId;
 
-    @Column(name = "MANY_TO_ONE_USERNAME")
+    @Column(name = "MANY_TO_ONE_MEMBER_USERNAME")
     private String username;
 
     @ManyToOne
