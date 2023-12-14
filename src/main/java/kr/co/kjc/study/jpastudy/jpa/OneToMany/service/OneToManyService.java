@@ -1,6 +1,6 @@
-package kr.co.kjc.study.jpastudy.OneToMany.service;
+package kr.co.kjc.study.jpastudy.jpa.OneToMany.service;
 
-import kr.co.kjc.study.jpastudy.OneToMany.repository.OneToManyRepository;
+import kr.co.kjc.study.jpastudy.jpa.OneToMany.repository.OneToManyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package kr.co.kjc.study.jpastudy.OneToMany.domain;
+package kr.co.kjc.study.jpastudy.jpa.OneToMany.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

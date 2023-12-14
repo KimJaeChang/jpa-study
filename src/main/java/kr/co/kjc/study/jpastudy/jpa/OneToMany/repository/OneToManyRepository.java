@@ -1,9 +1,9 @@
-package kr.co.kjc.study.jpastudy.OneToMany.repository;
+package kr.co.kjc.study.jpastudy.jpa.OneToMany.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import kr.co.kjc.study.jpastudy.OneToMany.domain.OneToManyMember;
-import kr.co.kjc.study.jpastudy.OneToMany.domain.OneToManyTeam;
+import kr.co.kjc.study.jpastudy.jpa.OneToMany.domain.OneToManyMember;
+import kr.co.kjc.study.jpastudy.jpa.OneToMany.domain.OneToManyTeam;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
