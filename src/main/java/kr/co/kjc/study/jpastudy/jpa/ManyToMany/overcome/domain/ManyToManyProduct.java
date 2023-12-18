@@ -20,6 +20,6 @@ public class ManyToManyProduct {
     @Column(name = "MANY_TO_MANY_PRODUCT_USERNAME")
     private String username;
 
-    @OneToMany(mappedBy = "manyToManyMember")
-    private List<ManyToManyMemberProduct> manyToManyMembers = new ArrayList<>();
+    @OneToMany(mappedBy = "manyToManyProduct")
+    private List<ManyToManyMemberProduct> manyToManyMemberProducts = new ArrayList<>();
 }

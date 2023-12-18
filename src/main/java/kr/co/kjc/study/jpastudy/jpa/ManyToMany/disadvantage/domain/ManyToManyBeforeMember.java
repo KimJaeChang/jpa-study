@@ -14,13 +14,13 @@ public class ManyToManyBeforeMember {
 
     @Id
     @GeneratedValue
-    @Column(name = "MANY_TO_MANY_MEMBER_ID")
+    @Column(name = "MANY_TO_MANY_BEFORE_MEMBER_ID")
     private Long manyToManyBeforeMemberId;
 
-    @Column(name = "MANY_TO_MANY_MEMBER_USERNAME")
+    @Column(name = "MANY_TO_MANY_BEFORE_MEMBER_USERNAME")
     private String username;
 
     @ManyToMany
-    @JoinTable(name = "MEMBER_PRODUCTS")
+    @JoinTable(name = "MANY_TO_MANY_MEMBER_BEFORE_PRODUCTS")
     private List<ManyToManyBeforeProduct> manyToManyBeforeProducts = new ArrayList<>();
 }

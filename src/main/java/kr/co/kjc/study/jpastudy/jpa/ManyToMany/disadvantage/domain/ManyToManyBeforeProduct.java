@@ -14,10 +14,10 @@ public class ManyToManyBeforeProduct {
 
     @Id
     @GeneratedValue
-    @Column(name = "MANY_TO_MANY_PRODUCT_ID")
+    @Column(name = "MANY_TO_MANY_BEFORE_PRODUCT_ID")
     private Long id;
 
-    @Column(name = "MANY_TO_MANY_PRODUCT_USERNAME")
+    @Column(name = "MANY_TO_MANY_BEFORE_PRODUCT_USERNAME")
     private String username;
 
     @ManyToMany(mappedBy = "manyToManyBeforeProducts")
