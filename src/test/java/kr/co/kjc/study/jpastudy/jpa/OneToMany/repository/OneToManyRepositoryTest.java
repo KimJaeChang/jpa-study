@@ -1,4 +1,4 @@
-package kr.co.kjc.study.jpastudy.OneToMany.repository;
+package kr.co.kjc.study.jpastudy.jpa.OneToMany.repository;
 
 import kr.co.kjc.study.jpastudy.jpa.OneToMany.service.OneToManyService;
 import org.junit.jupiter.api.DisplayName;
