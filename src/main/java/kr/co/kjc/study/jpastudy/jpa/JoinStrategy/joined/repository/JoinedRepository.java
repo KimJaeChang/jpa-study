@@ -13,7 +13,7 @@ public class JoinedRepository {
     private EntityManager em;
 
     @Transactional
-    public void createJoined() {
+    public void create() {
         JoinedMovie movie = new JoinedMovie();
         movie.setDirector("aaaa");
         movie.setActor("bbbb");

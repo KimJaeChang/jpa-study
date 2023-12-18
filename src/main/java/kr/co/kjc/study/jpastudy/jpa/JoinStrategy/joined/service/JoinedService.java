@@ -10,8 +10,8 @@ public class JoinedService {
 
     private final JoinedRepository joinedRepository;
 
-    public void createJoined() {
-        joinedRepository.createJoined();
+    public void create() {
+        joinedRepository.create();
     }
 
 }

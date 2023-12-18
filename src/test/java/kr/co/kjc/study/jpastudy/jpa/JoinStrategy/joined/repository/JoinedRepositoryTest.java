@@ -14,8 +14,8 @@ class JoinedRepositoryTest {
 
     @Test
     @DisplayName("조인전략 샘플")
-    void JoinedCreated() {
-        joinedService.createJoined();
+    void create() {
+        joinedService.create();
     }
 
 }
