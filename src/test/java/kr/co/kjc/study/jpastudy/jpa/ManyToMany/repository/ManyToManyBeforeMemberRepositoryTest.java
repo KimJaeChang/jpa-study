@@ -1,6 +1,6 @@
 package kr.co.kjc.study.jpastudy.jpa.ManyToMany.repository;
 
-import kr.co.kjc.study.jpastudy.jpa.ManyToMany.disadvantage.service.ManyToManyMemberService;
+import kr.co.kjc.study.jpastudy.jpa.ManyToMany.disadvantage.service.ManyToManyBeforeMemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ManyToManyBeforeMemberRepositoryTest {
 
     @Autowired
-    private ManyToManyMemberService manyToManyMemberService;
+    private ManyToManyBeforeMemberService manyToManyMemberService;
 
 
     @Test
