@@ -76,7 +76,7 @@
     + ### 연관관계 매핑
       + 설명 :
         + ### 단방향 연관관계
-          + ![img.png](images/ManyToOne.png)
+          + ![img.png](images/many_to_one/ManyToOne.png)
             + 설명 :
               + 방향(Direaction) : 단방향, 양방향
               + 다중성(Multiplicitiy) : 다대일(N:1), 일대다(1:N), 일대일(1:1)
@@ -86,7 +86,7 @@
                   + @ManyToOne : 다대일 매핑 사용
                   + @JoinColumn : 매핑 할 컬럼 정의
         + ### 양방향 연관관계
-          + ![img.png](images/ManyToMany.png)
+          + ![img.png](images/many_to_many/ManyToMany.png)
             + 객체 연관관계 = 2개
                 + 회원 -> 팀 연관관계 1개(단방향)
                 + 팀 -> 회원 연관관계 1개(단방향)
@@ -95,7 +95,7 @@
             + 양방향 매핑 규칙
               + 객체의 두 관계중 하나를 연관관계의 주인으로 지정
                 + <U>**외래키**</U>가 있는 곳이 주인
-                + ![img.png](images/ManyToManyOwner.png)
+                + ![img.png](images/many_to_many/ManyToManyOwner.png)
               + <U>**연관관계의 주인만이 외래 키를 관리(등록 수정)**</U>
               + <U>**주인이 아닌 쪽은 읽기만 가능**</U>
               + 주인은 mappedBy 속성 사용 X
@@ -127,7 +127,7 @@
         + 다대일 [N:1] : @ManyToOne     
           + 외래키가 있는곳에 참조를 걸면된다.
           + kr.co.kjc.study.jpastudy.ManyToOne 패키지 참조
-            + ![img.png](images/ManyToOneV2.png)
+            + ![img.png](images/many_to_one/ManyToOneV2.png)
         + 일대다 [1:N] : @OneToMany     
           + 일대다 단방향은 일대다(1:N)에서 <U>**일(1)이 연관관계의 주인**</U>
           + 테이블 일대다 관계는 항상 <U>**다(N)쪽에 외래 키가 있음**</U>
@@ -138,7 +138,7 @@
             + 연관관계 관리를 위해 추가로 UPDATE SQL 실행
             + 일대다 단방향 매핑보다는 <U>**다대일 양방향 매핑**</U>을 사용하자.
           + kr.co.kjc.study.jpastudy.OneToMany 패키지 참조
-            + ![img.png](images/OneToMany.png)
+            + ![img.png](images/one_to_many/OneToMany.png)
         + 일대일 [1:1] : @OneToOne     
           + 일대일 관계는 그 반대도 일대일
           + 주 테이블이나 대상 테이블 중에 외래 키 선택 가능
@@ -158,15 +158,15 @@
               + 장점 : 주 테이블과 대상 테이블을 일대일에서 일대다 관계로 변경할 때 테이블 유지
               + 단점 : 프록시 기능의 한계로 <U>**지연 로딩으로 설정해도 항상 즉시 로딩 됨**</U>
           + kr.co.kjc.study.jpastudy.OneToOne 패키지 참조
-            + ![img.png](images/OneToOne.png)
+            + ![img.png](images/one_to_one/OneToOne.png)
         + 다대다 [N:N] : @ManyToMany - <U>**실무에선 쓰면 안된다!**</U>
           + @JoinTable로 연결 테이블 지정 
           + kr.co.kjc.study.jpastudy.ManyToMany 패키지 참조
-            + ![img.png](images/ManyToManyV2.png)
+            + ![img.png](images/many_to_many/ManyToManyV2.png)
           + 다대다 매핑의 한계
-            + ![img.png](images/ManyToManyDisadvantage.png)
+            + ![img.png](images/many_to_many/ManyToManyDisadvantage.png)
           + 다대다 매핑의 한계 극복 (ManyToManyMemberProduct.class)
-            + ![img.png](images/ManyToManyOverCome.png)
+            + ![img.png](images/many_to_many/ManyToManyOverCome.png)
 
     + ### 상속관계 매핑
       + 내용 : 객체의 상속과 구조와 DB의 슈퍼타입 서브타입 관계를 매핑
@@ -175,11 +175,40 @@
             + JOINED : 조인전략
             + SINGLE_TABLE : 단일 테이블 전략
             + TABLE_PER_CLASS : 구현 클래스마다 테이블 전략
-          + @DiscriminatorColumn(name="DTYPE")
-          + @DiscriminatorValue("XXX")
+          + @DiscriminatorColumn 
+            + 상속받은 엔티티 구분용
+            + default : "DTYPE"
+          + @DiscriminatorValue
+            + 엔티티 구분 명 지정
+            + default : 엔티티 명
         + 종류 :
           + 조인전략
-            + 부모 테이블에 <U>**ID(key)**</U>값을 정해놓고 <U>**DTYPE**</U> 으로 자식 테이블을 구분한다.
-              ![img.png](images/JoinStrategy.png)
+            + 정의 : 부모 테이블에 <U>**ID(key)**</U>값을 정해놓고 <U>**DTYPE**</U> 으로 자식 테이블을 구분한다.
+            + 장점 : 
+              + 테이블 정규화
+              + 외래 키 참조 무결성 제약조건 활용가능
+              + 저장공간 효율화
+            + 단점 : 
+              + 조회시 조인을 많이 사용, 성능 저하
+              + 조회 쿼리가 복잡함
+              + 데이터 저장시 INSERT SQL 2번 호출
+            + ![img.png](images/strategy/JoinStrategy.png)
           + 단일 테이블 전략
-            + 각각 자식테이블에 
+            + 정의 : 한 테이블에 필드를 선언하고 <U>**DTYPE**</U> 구분한다.
+            + 장점 : 
+              + 조인이 필요없으므로 일반적으로 조회 성능이 빠름
+              + 조회 쿼리가 단순함
+            + 단점 : 
+              + 자식 엔티티가 매핑한 컬럼은 모두 null 허용 (데이터 무결성 입장에선 애매하다.)
+              + 단일 테이블에 모든 것을 저장하므로 테이블이 커질 수 있으므로  
+                상황에 따라서 조회 성능이 오히려 느려질 수 있다.
+            + ![img.png](images/strategy/SingleStrategy.png)
+          + 구현 클래스 마다 테이블 전략
+            + 정의 : 이 전략은 데이터베이스 설계자와 ORM 전문가 둘다 추천X
+            + 장점 : 
+              + 서브 타입을 명확하게 구분해서 처리할 때 효과적
+              + not null 제약조건 사용 가능
+            + 단점 :
+              + 여러 자식 테이블을 함께 조회할 때 성능이 느림 (UNION SELECT)
+              + 자식 테이블을 통합해서 쿼리하기 어려움
+            + ![img.png](images/strategy/TablePerClassStrategy.png)
