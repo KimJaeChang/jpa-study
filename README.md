@@ -258,3 +258,17 @@
           + org.hibernate.Hibernate.initialize(entity);
           + <span style="color:red"><U>**참고 : JPA 강제 초기화 없음**</U></span>
             + 강제 호출 : <U>**entity.getXXX()**</U> 
+    + ### Lazy 로딩(지연 로딩)
+      + 연관관계로 맺어진 Member, team 2개의 Entity에서 <U>**fetch = FetchType.LAZY**</U> 로 설정했을 때는  
+        Member 엔티티에서 Team 엔티티를 조회할 때 team은 조회되지 않고 프록시만 생성된다.
+      + 그리고 실제 team의 필드를 조회할 때 프록시가 초기화가 되며 SQL쿼리가 실행된다.
+    + ### Eager 로딩(즉시 로딩)
+      + 연관관계로 맺어진 Member, team 2개의 Entity에서 <U>**fetch = FetchType.EAGER**</U> 로 설정했을 때는  
+        Member 엔티티에서 Team 엔티티를 조회할 때 team도 같이 조회된다.
+    + ### 프록시와 즉시로딩 주의
+      + <span style="color:red"><U>**가급적 지연 로딩만 사용(특히 실무에서)**</U></span>
+      + 즉시 로딩을 적용하면 예상하지 못한 SQL이 발생
+      + <U>**즉시 로딩은 JPQL에서 <span style="color:red">N+1</span> 문제를 일으킨다.**</U>
+        + <U>**지연로딩을 쓴다고 N+1이 해결되는게 아니다. fetch join을 써야한다.**</U>
+      + <U>**@ManyToOne, @OneToOne은 기본이 즉시 로딩이어서 LAZY로딩으로 꼭 설정이 필요하다.**</U>
+      + @OneToMany, @ManyToMany는 기본이 지연 로딩 이다.
