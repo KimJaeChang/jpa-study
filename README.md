@@ -257,4 +257,4 @@
         + 프록시 강제 초기화 (Hibernate)
           + org.hibernate.Hibernate.initialize(entity);
           + <span style="color:red"><U>**참고 : JPA 강제 초기화 없음**</U></span>
-            + 강제 호출 : <U>**entity.getXXX()**</U>
+            + 강제 호출 : <U>**entity.getXXX()**</U> 
