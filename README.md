@@ -260,11 +260,11 @@
             + 강제 호출 : <U>**entity.getXXX()**</U> 
     + ### Lazy 로딩(지연 로딩)
       + 연관관계로 맺어진 Member, team 2개의 Entity에서 <U>**fetch = FetchType.LAZY**</U> 로 설정했을 때는  
-        Member 엔티티에서 Team 엔티티를 조회할 때 team은 조회되지 않고 프록시만 생성된다.
+        Member 엔티티에서 <U>**Team 엔티티를 조회할 때**</U> team은 조회되지 않고 프록시만 생성된다.
       + 그리고 실제 team의 필드를 조회할 때 프록시가 초기화가 되며 SQL쿼리가 실행된다.
     + ### Eager 로딩(즉시 로딩)
       + 연관관계로 맺어진 Member, team 2개의 Entity에서 <U>**fetch = FetchType.EAGER**</U> 로 설정했을 때는  
-        Member 엔티티에서 Team 엔티티를 조회할 때 team도 같이 조회된다.
+        Member 엔티티에서 <U>**Team 엔티티를 조회할 때**</U> team도 같이 조회된다.
     + ### 프록시와 즉시로딩 주의
       + <span style="color:red"><U>**가급적 지연 로딩만 사용(특히 실무에서)**</U></span>
       + 즉시 로딩을 적용하면 예상하지 못한 SQL이 발생
@@ -272,3 +272,32 @@
         + <U>**지연로딩을 쓴다고 N+1이 해결되는게 아니다. fetch join을 써야한다.**</U>
       + <U>**@ManyToOne, @OneToOne은 기본이 즉시 로딩이어서 LAZY로딩으로 꼭 설정이 필요하다.**</U>
       + @OneToMany, @ManyToMany는 기본이 지연 로딩 이다.
+      
+    + ### CASCADE (영속성 전이)
+      + 특정 엔티티를 영속 상태로 만들 때 연관된 엔티티도 함께 영속 상태로 만들고 싶을 때
+      + 예) 부모 엔티티를 저장할 때 자식 엔티티도 함께 저장
+      + 주의 : 
+        + CASCADE를 매핑한 두 엔티티의 라이프 사이클이 일치할 때만 쓴다.
+        + 영속성 전이는 연관관계를 매핑하는 것과 아무 관련이 없음.
+        + 엔티티를 영속화할 때 연관된 엔티티도 함께 영속화하는 편리함을 제공할 뿐이다.
+      ![img.png](images/cascade/cascade.png)
+    
+    + ### 고아 객체
+      + 고아 객체 제거 : 부모 엔티티와 연관관계가 끊어진 자식 엔티티를 자동으로 삭제
+      + <U>**orphanRemoval = true**</U>
+      + CasCadeParent findParent = em.find(CasCadeParent.class, parent.getId());
+        findParent.getChilds().remove(0); -> 자식 엔티티를 컬렉션에서 제거
+      + DELETE FROM CASCADECHILD WHERE ID = ? -> 이런식으로 쿼리가 나감
+      + 주의 : 
+        + 참조가 제거된 엔티티는 다른 곳에서 참조하지 않는 고아 객체로 보고 삭제하는 기능
+        + <U>**참조하는 곳이 하나일 때 사용해야함!**</U>
+        + <U>**특정 엔티티가 개인 소유할 때 사용**</U>
+        + @OneToOne, @OneToMany만 가능.
+      + 참고 :
+        + 개념적으로 부모를 제거하면 자식은 고아가 된다, 따라서 고아 객체 제거 기능을 활성화 하면, 부모를 제거할 때 자식도 함께 제거된다.  
+          이것은 Cascade.Type.REMOVE처럼 동작한다.
+      + 영속성 전이 + 고아객체, 생명주기
+        + <U>**CascadeType.ALL + orphanRomovel=true**</U>
+        + 스스로 생명주기를 관리하는 엔티티는 em.persist()로 영속화, em.remove()로 제거
+        + 두 옵션을 모두 활성화 하면 부모 엔티티를 통해서 자식의 생명주기를 관리할 수 있음.
+        + 도메인 주도 설계(DDD)의 Aggregate Root개념을 구현할 때 유용
