@@ -1,31 +1,30 @@
-package kr.co.kjc.study.jpastudy.jpa.repository;
+package kr.co.kjc.study.jpastudy.jpa.embedded.repository;
 
 import jakarta.persistence.*;
-import kr.co.kjc.study.jpastudy.jpa.domain.Address;
-import kr.co.kjc.study.jpastudy.jpa.domain.AddressEntity;
-import kr.co.kjc.study.jpastudy.jpa.domain.Member;
-import kr.co.kjc.study.jpastudy.jpa.domain.Team;
+import kr.co.kjc.study.jpastudy.jpa.embedded.domain.EmbeddedAddress;
+import kr.co.kjc.study.jpastudy.jpa.embedded.domain.AddressEntity;
+import kr.co.kjc.study.jpastudy.jpa.embedded.domain.EmbeddedMember;
+import kr.co.kjc.study.jpastudy.jpa.embedded.domain.EmbeddedTeam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberRepository {
+public class EmbeddedMemberRepository {
 
     @PersistenceContext
     private EntityManager em;
 
     @Transactional
-    public Member findMember(String userId) {
+    public EmbeddedMember findMember(String userId) {
 
         // 1. 분명 Member의 Team은 Lazy인데 왜 team이 select 되어지지?
         // 2. 아하 Team의 oneToMany를 지정 안 해주면 Lazy로딩이 적용되지 않는다.!!!
         // 3. ToString을 쓰면 lazy로딩이 적용되지 않는다.
-        Member findMember = em.find(Member.class, userId);
+        EmbeddedMember findMember = em.find(EmbeddedMember.class, userId);
         System.out.println("\t");
         System.out.println("findMember.id : " + findMember.getId());
         System.out.println("findMember.name : " + findMember.getName());
@@ -60,25 +59,25 @@ public class MemberRepository {
     }
 
     @Transactional
-    public Member createMember() {
+    public EmbeddedMember createMember() {
 
 //        EntityTransaction transaction = entityManager.getTransaction();
 
         try {
 //            transaction.begin();
 
-            Member kjc = new Member();
+            EmbeddedMember kjc = new EmbeddedMember();
 //            kjc.setId("kjc");
             kjc.setName("김재창");
             em.persist(kjc);
 
-            Member jjw = new Member();
+            EmbeddedMember jjw = new EmbeddedMember();
 //            jjw.setId("jjw");
             jjw.setName("정지운");
             em.persist(jjw);
 
-            Member findKjc = em.find(Member.class, kjc.getId());
-            Member findJjw = em.find(Member.class, jjw.getId());
+            EmbeddedMember findKjc = em.find(EmbeddedMember.class, kjc.getId());
+            EmbeddedMember findJjw = em.find(EmbeddedMember.class, jjw.getId());
 
             System.out.println("\t");
             System.out.println("findKjc : " + findKjc);
@@ -98,9 +97,9 @@ public class MemberRepository {
     }
 
     @Transactional
-    public Member updateMemberByTeam() {
-        Team findTeam = em.find(Team.class, "everon");
-        Member findMember = em.find(Member.class, "kjc");
+    public EmbeddedMember updateMemberByTeam() {
+        EmbeddedTeam findTeam = em.find(EmbeddedTeam.class, "everon");
+        EmbeddedMember findMember = em.find(EmbeddedMember.class, "kjc");
         findMember.setMemberTeam(findTeam);
 
         em.persist(findMember);
@@ -109,9 +108,9 @@ public class MemberRepository {
 
     @Transactional
     public void createCollection() {
-        Member member = new Member();
+        EmbeddedMember member = new EmbeddedMember();
         member.setName("member1");
-        member.setAddress(new Address("seoul", "street1", "zipcode1"));
+        member.setHomeAddress(new EmbeddedAddress("seoul", "street1", "zipcode1"));
 
         member.getFavoriteFoods().add("치킨");
         member.getFavoriteFoods().add("족발");
@@ -131,7 +130,7 @@ public class MemberRepository {
         System.out.println("===================== start ========================");
         System.out.println("\t");
 
-        Member findMember = em.find(Member.class, member.getId());
+        EmbeddedMember findMember = em.find(EmbeddedMember.class, member.getId());
 
         System.out.println("\t");
         System.out.println("findMember : " + findMember);

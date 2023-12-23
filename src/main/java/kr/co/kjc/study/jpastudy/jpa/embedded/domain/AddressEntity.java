@@ -1,4 +1,4 @@
-package kr.co.kjc.study.jpastudy.jpa.domain;
+package kr.co.kjc.study.jpastudy.jpa.embedded.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,17 +15,17 @@ public class AddressEntity {
     @GeneratedValue
     private long id;
 
-    private Address address;
+    private EmbeddedAddress address;
 
     public AddressEntity() {
 
     }
 
-    public AddressEntity(Address address) {
+    public AddressEntity(EmbeddedAddress address) {
         this.address = address;
     }
 
     public AddressEntity(String city, String street, String zipcod) {
-        this.address = new Address(city, street, zipcod);
+        this.address = new EmbeddedAddress(city, street, zipcod);
     }
 }

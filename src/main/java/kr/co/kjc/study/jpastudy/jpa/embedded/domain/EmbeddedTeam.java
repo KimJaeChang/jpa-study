@@ -1,4 +1,4 @@
-package kr.co.kjc.study.jpastudy.jpa.domain;
+package kr.co.kjc.study.jpastudy.jpa.embedded.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Team {
+public class EmbeddedTeam {
 
     @Id
 //    @GeneratedValue
@@ -19,6 +19,6 @@ public class Team {
     @Column(name = "TEAMNAME")
     private String name;
 
-    @OneToMany(targetEntity = Member.class, mappedBy = "memberTeam")
-    private List<Member> members = new ArrayList<>();
+    @OneToMany(targetEntity = EmbeddedMember.class, mappedBy = "memberTeam")
+    private List<EmbeddedMember> members = new ArrayList<>();
 }

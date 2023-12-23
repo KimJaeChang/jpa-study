@@ -1,4 +1,4 @@
-package kr.co.kjc.study.jpastudy.jpa.domain;
+package kr.co.kjc.study.jpastudy.jpa.embedded.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class Member {
+public class EmbeddedMember {
 
     @Id
     @GeneratedValue
@@ -24,12 +24,28 @@ public class Member {
     private String name;
 
     @Embedded
-    private Address address;
+    private EmbeddedPeriod period;
 
-    @ManyToOne(targetEntity = Team.class, fetch = FetchType.LAZY)   // @JoinColumn없이 targetEntity만 매칭시키면 entity의 @Id 변수명을 따라간다. 주의!!!!
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY")),
+            @AttributeOverride(name = "street", column = @Column(name = "HOME_STREET")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "HOME_ZIPCODE"))
+    })
+    @Embedded
+    private EmbeddedAddress homeAddress;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "WORK_CITY")),
+            @AttributeOverride(name = "street", column = @Column(name = "WORK_STREET")),
+            @AttributeOverride(name = "zipcode", column = @Column(name =  "WORK_ZIPCODE"))
+    })
+    private EmbeddedAddress workAddress;
+
+    @ManyToOne(targetEntity = EmbeddedTeam.class, fetch = FetchType.LAZY)   // @JoinColumn없이 targetEntity만 매칭시키면 entity의 @Id 변수명을 따라간다. 주의!!!!
     @JoinColumn(name = "team_id")
 //    @JoinColumn(name = "team_teamid") // error -> name 공식은 Team entity의 @id를 찾도록 entity_id로 항상 매핑해야하나?
-    private Team memberTeam;
+    private EmbeddedTeam memberTeam;
 
     @ElementCollection
     @CollectionTable(name = "FAVORITE_FOOD", joinColumns = {
