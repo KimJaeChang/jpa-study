@@ -309,6 +309,8 @@
       + 값 타입
         + int, Integer, String 처럼 단순히 값으로 사용하는 자바 기본 타입이나 객체
         + 식별자가 없고 값만 있으므로 변경시 추적 불가
+        + <span style="color:red"><U>**값 타입은 불변 객체(immutable object)로 설계해야함.**</U></span>
+          + -> <U>**setter 사용 금지!!!!**</U>
         + 예) 숫자 100을 200으로 변경하면 완전히 다른 값으로 대체
           + 값 타입 종류 : 
             + 기본 값 타입 : 
@@ -317,14 +319,14 @@
               + <span style="color:red"><U>**값 타입은 공유하면 안된다.**</U></span>
                 + 예) 회원 이름 변경시 다른 회원의 이름도 함께 변경되면 안됨
                 + 기본 값 타입 종류
-                  + 자바 기본 타입 :
-                    + int
-                    + double
-                  + 래퍼 클래스
-                    + 설명 : <span style="color:red"><U>**하단의 특수한 클래스는 공유 가능한 객체이지만 변경하면 안된다.**</U></span>
-                      + String
-                      + Integer
-                      + Long
+              + 자바 기본 타입 :
+                + int
+                + double
+              + 래퍼 클래스
+                + 설명 : <span style="color:red"><U>**하단의 특수한 클래스는 공유 가능한 객체이지만 변경하면 안된다.**</U></span>
+                  + String
+                  + Integer
+                  + Long
           + 임베디드 타입(embedded type, 복합 값 타입)
             + 설명 : 
               + 새로운 값 타입을 직접 정의할 수 있음
@@ -338,8 +340,15 @@
             + 장점 : 
               + 재사용
               + 높은 응집도
-              + Period.isWork()처럼 해당 값 타입만 사용하는 의미 있는 메소드를 만들 수 있음
+              + EmbeddedPeriod.isWork()처럼 해당 값 타입만 사용하는 의미 있는 메소드를 만들 수 있음
               + 임베디드 타입을 포함한 모든 값 타입은, 값 타입을 소유한 엔티티에 생명주기를 의존함.
+            + 단점 : 
+              + 임베디드 타입을 여러 엔티티에서 공유하면 위험함.
+              + <span style="color:red"><U>**값이 수정되면 임베디드 받고있는 모든 엔티티가 수정이 된다.**</U></span>
+                + -> 해결 방법 : 대신 값(인스턴스)을 복사해서 새로운 값(new Instance)을 사용
+                  ![img.png](images/embedded/embedded.png)
+            + 객체 타입의 한계 : 
+              ![img.png](images/embedded/embedded_limit.png)
             + 기타 : 
               + 같은 임베디드 타입을 구분해서 쓰고싶을 때는 <U>**@AttributeOverrides**</U> 사용!
                 + <U>**EmbeddedMember.java 의 homeAddress, workAddress 참조**</U>
