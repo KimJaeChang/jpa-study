@@ -146,15 +146,16 @@ public class EmbeddedMemberRepository {
         }
 
 
-        // seoul -> pusan
+        // seoul -> pusan 값 타입 수정할 때(DB UPDATE 쿼리가 실행됌)
 //        Address a = findMember.getAddress();
 //        findMember.setAddress(new Address("pusan", a.getStreet(), a.getZipcode()));
 
-        //치킨 -> 한식
+        //치킨 -> 한식  값 타입 수정할 때(DB UPDATE 쿼리가 실행됌)
 //        findMember.getFavoriteFoods().remove("치킨");
 //        findMember.getFavoriteFoods().add("한식");
 
-        //
+        // 값 타입 수정할 때 (DB에서 'EMBEDDED_MEMBER_ID'로 조인 걸려있는 모든 데이터 DELETE 후 최종적으로 남아있는 데이터를 INSERT 쿼리가 실행됌)
+        // README.md -> ### 값 타입 컬렉션 제약사항 참고
         findMember.getAddressHistory().remove(new AddressEntity("incheon", "street2", "zipcode2"));
         findMember.getAddressHistory().add(new AddressEntity("newCity1", "newStreet", "newZipcode"));
 

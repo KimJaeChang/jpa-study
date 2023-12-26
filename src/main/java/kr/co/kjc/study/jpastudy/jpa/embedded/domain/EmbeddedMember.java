@@ -18,7 +18,7 @@ public class EmbeddedMember {
 
     @Id
     @GeneratedValue
-    @Column(name = "USERID")
+    @Column(name = "ID")
     private Long id;
     @Column(name = "USERNAME")
     private String name;
@@ -49,7 +49,7 @@ public class EmbeddedMember {
 
     @ElementCollection
     @CollectionTable(name = "FAVORITE_FOOD", joinColumns = {
-            @JoinColumn(name = "MEMBER_ID")
+            @JoinColumn(name = "EMBEDDED_MEMBER_ID")        // FAVORITE_FOOD 테이블에 생성할 id값
     })
     @Column(name = "FOOD_NAME") // 값 타입 컬렉션이지만 필드가 하나일 때 사용
     private Set<String> favoriteFoods = new HashSet<>();
@@ -60,8 +60,9 @@ public class EmbeddedMember {
 //    })
 //    private List<Address> addressHistory = new ArrayList<>();
 
+    // 값 타입 컬렉션 대안
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "EMBEDDED_MEMBER_ID")
     private List<AddressEntity> addressHistory = new ArrayList<>();
 
 }
