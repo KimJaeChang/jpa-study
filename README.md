@@ -354,4 +354,4 @@
                 + <U>**EmbeddedMember.java 의 homeAddress, workAddress 참조**</U>
                 + name : Embedded로 선언된 클래스의 변수명
                 + column : 엔티티에 어떤 컬럼으로 선언할 지 custom
-          + 컬렉션 값 타입(collection value type)  
+          + 컬렉션 값 타입(collection value type)   
