@@ -307,51 +307,57 @@
         + 데이터가 변해도 식별자로 지속해서 추적 가능
         + 예) 회원 엔티티의 키나 나이값을 변경해도 식별자로 인식 가능
       + 값 타입
+        + 인스턴스가 달라도 그 안에 값이 같으면 같은 것으로 봐야함.
         + int, Integer, String 처럼 단순히 값으로 사용하는 자바 기본 타입이나 객체
         + 식별자가 없고 값만 있으므로 변경시 추적 불가
         + <span style="color:red"><U>**값 타입은 불변 객체(immutable object)로 설계해야함.**</U></span>
           + -> <U>**setter 사용 금지!!!!**</U>
         + 예) 숫자 100을 200으로 변경하면 완전히 다른 값으로 대체
-          + 값 타입 종류 : 
-            + 기본 값 타입 : 
-              + 생명주기를 엔티티에 의존
-                + 예) 회원을 삭제하면 이름, 나이 필드도 함께 삭제
-              + <span style="color:red"><U>**값 타입은 공유하면 안된다.**</U></span>
-                + 예) 회원 이름 변경시 다른 회원의 이름도 함께 변경되면 안됨
-                + 기본 값 타입 종류
-              + 자바 기본 타입 :
-                + int
-                + double
-              + 래퍼 클래스
-                + 설명 : <span style="color:red"><U>**하단의 특수한 클래스는 공유 가능한 객체이지만 변경하면 안된다.**</U></span>
-                  + String
-                  + Integer
-                  + Long
-          + 임베디드 타입(embedded type, 복합 값 타입)
-            + 설명 : 
-              + 새로운 값 타입을 직접 정의할 수 있음
-              + JPA는 임베디드 타입 이라함
-              + 주로 기본 값 타입을 모아서 만들어서 복합 값 타입이라고도 함
-              + int String과 같은 값 타입
-              + 임베디드 타입은 엔티티으 값일 뿐이다.
-              + <U>**임베디드 타입을 사용하기 전과 후에 매핑하는 테이블은 같다.**</U>
-              + 객체와 테이블을 아주 세밀하게 매핑하는 것이 가능
-              + 잘 설계한 ORM 애플리케이션은 매핑한 테이블의 수보다 클래스의 수가 더 많음
-            + 장점 : 
-              + 재사용
-              + 높은 응집도
-              + EmbeddedPeriod.isWork()처럼 해당 값 타입만 사용하는 의미 있는 메소드를 만들 수 있음
-              + 임베디드 타입을 포함한 모든 값 타입은, 값 타입을 소유한 엔티티에 생명주기를 의존함.
-            + 단점 : 
-              + 임베디드 타입을 여러 엔티티에서 공유하면 위험함.
-              + <span style="color:red"><U>**값이 수정되면 임베디드 받고있는 모든 엔티티가 수정이 된다.**</U></span>
-                + -> 해결 방법 : 대신 값(인스턴스)을 복사해서 새로운 값(new Instance)을 사용
-                  ![img.png](images/embedded/embedded.png)
-            + 객체 타입의 한계 : 
-              ![img.png](images/embedded/embedded_limit.png)
-            + 기타 : 
-              + 같은 임베디드 타입을 구분해서 쓰고싶을 때는 <U>**@AttributeOverrides**</U> 사용!
-                + <U>**EmbeddedMember.java 의 homeAddress, workAddress 참조**</U>
-                + name : Embedded로 선언된 클래스의 변수명
-                + column : 엔티티에 어떤 컬럼으로 선언할 지 custom
-          + 컬렉션 값 타입(collection value type)   
+        + 값 타입 비교 :
+          + 동일성(identity) 비교 : 인스턴스의 참조 값을 비교, == 사용
+          + 동등성(equivalence) 비교 : 인스턴스의 값을 비교, equals()
+          + 값 타입은 a.equals(b)를 사용해서 동등성 비교를 해야함
+          + 값 타입의 equals() 메소드를 적절하게 재정의(주로 모든 필드 사용)
+        + 값 타입 종류 : 
+          + 기본 값 타입 : 
+            + 생명주기를 엔티티에 의존
+              + 예) 회원을 삭제하면 이름, 나이 필드도 함께 삭제
+            + <span style="color:red"><U>**값 타입은 공유하면 안된다.**</U></span>
+              + 예) 회원 이름 변경시 다른 회원의 이름도 함께 변경되면 안됨
+              + 기본 값 타입 종류
+            + 자바 기본 타입 :
+              + int
+              + double
+            + 래퍼 클래스
+              + 설명 : <span style="color:red"><U>**하단의 특수한 클래스는 공유 가능한 객체이지만 변경하면 안된다.**</U></span>
+                + String
+                + Integer
+                + Long
+        + 임베디드 타입(embedded type, 복합 값 타입)
+          + 설명 : 
+            + 새로운 값 타입을 직접 정의할 수 있음
+            + JPA는 임베디드 타입 이라함
+            + 주로 기본 값 타입을 모아서 만들어서 복합 값 타입이라고도 함
+            + int String과 같은 값 타입
+            + 임베디드 타입은 엔티티으 값일 뿐이다.
+            + <U>**임베디드 타입을 사용하기 전과 후에 매핑하는 테이블은 같다.**</U>
+            + 객체와 테이블을 아주 세밀하게 매핑하는 것이 가능
+            + 잘 설계한 ORM 애플리케이션은 매핑한 테이블의 수보다 클래스의 수가 더 많음
+          + 장점 : 
+            + 재사용
+            + 높은 응집도
+            + EmbeddedPeriod.isWork()처럼 해당 값 타입만 사용하는 의미 있는 메소드를 만들 수 있음
+            + 임베디드 타입을 포함한 모든 값 타입은, 값 타입을 소유한 엔티티에 생명주기를 의존함.
+          + 단점 : 
+            + 임베디드 타입을 여러 엔티티에서 공유하면 위험함.
+            + <span style="color:red"><U>**값이 수정되면 임베디드 받고있는 모든 엔티티가 수정이 된다.**</U></span>
+              + -> 해결 방법 : 대신 값(인스턴스)을 복사해서 새로운 값(new Instance)을 사용
+                ![img.png](images/embedded/embedded.png)
+          + 객체 타입의 한계 : 
+            ![img.png](images/embedded/embedded_limit.png)
+          + 기타 : 
+            + 같은 임베디드 타입을 구분해서 쓰고싶을 때는 <U>**@AttributeOverrides**</U> 사용!
+              + <U>**EmbeddedMember.java 의 homeAddress, workAddress 참조**</U>
+              + name : Embedded로 선언된 클래스의 변수명
+              + column : 엔티티에 어떤 컬럼으로 선언할 지 custom
+        + 컬렉션 값 타입(collection value type)   
