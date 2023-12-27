@@ -5,6 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import kr.co.kjc.study.jpastudy.jpql.domain.JpqlMember;
+import kr.co.kjc.study.jpastudy.jpql.dto.JpqlMemberDto;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,27 @@ public class JpqlRepository {
                 .setParameter("username", member.getUsername())
                 .getResultList();
         System.out.println("queryJpqlMemberResult : " + queryJpqlMemberResult);
+
+//        Query objectJpqlMember = em.createQuery("select m from JpqlMember m where m.username = :username");
+//        List<Object[]> objectJpqlMemberResult = objectJpqlMember
+//                .setParameter("username", member.getUsername())
+//                .getResultList();
+//
+//        System.out.println("\t");
+//        System.out.println("objectJpqlMemberResult : " + objectJpqlMemberResult);
+//        System.out.println("\t");
+//        System.out.println("object username = " + objectJpqlMemberResult.get(0));
+//        System.out.println("object age = " + objectJpqlMemberResult.get(1));
+//        System.out.println("\t");
+
+        List<JpqlMemberDto> resultList = em.createQuery("select new kr.co.kjc.study.jpastudy.jpql.dto.JpqlMemberDto(m.username, m.age) from JpqlMember m where m.username = :username", JpqlMemberDto.class)
+                .setParameter("username", member.getUsername())
+                .getResultList();
+
+        System.out.println("\t");
+        System.out.println("resultList : " + resultList);
+        System.out.println("\t");
+
 
         System.out.println("boolean : " + (typeQueryMemberResult.get(0) instanceof JpqlMember));
         System.out.println("boolean : " + (queryJpqlMemberResult.get(0) instanceof JpqlMember));
