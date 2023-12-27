@@ -370,6 +370,27 @@
         + 검색을 할 때도 테이블이 아닌 엔티티 객체를 대상으로 검색
         + 모든 DB 데이터를 객체로 변환해서 검색하는 것은 불가능
         + 애플리케이션이 필요한 데이터만 DB에서 불러오려면 결국 검색 조건이 포함된 SQL이 필요
+        + 문법 : 
+          + ex) "select m from Member m where m.age > 18"
+          + 엔티티와 속성은 대소문자 구분해야 한다.(Member, age)
+          + JPQL 키워드는 대소문자 구분을 하지 않아도 된다.(SELECT, FROM, where)
+          + 엔티티 이름 사용, 테이블 이름이 아님(Member)
+          + 별칭은 필수(m) (as는 생략 가능)
+        + TypeQuery, Query
+          + TypeQuery : 반환 타입이 명확할 때 사용
+            + ex)  
+          + Query : 반환 타입이 명확하지 않을 때 사용
+        + 결과조회 API
+          + query.getResultList() : 결과가 하나 이상일 때, 리스트 반환
+            + 결과가 없으면 빈 리스트 반환
+          + query.getSingleResult() : 결과가 정확히 하나, 단일 객체 반환 (null 허용 안됌)
+            + 결과가 없으면 : NoResultException
+            + 결과가 2개 이상이면 : NonUniqueResultException
+        + 파라미터 바인딩 - 이름기준, 위치기준
+          + 이름 기준 : 
+            + ![img.png](images/jpql/jpql_parameter_binding_name.png)
+          + 순서 기준 : 
+            + ![img.png](images/jpql/jpql_parameter_binding_order.png)
       + JPA Criteria
       + QueryDSL
       + 네이티브 SQL
