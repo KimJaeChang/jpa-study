@@ -78,9 +78,9 @@ public class JpqlRepository {
 
         for(Object[] objects : memberTypeList) {
             System.out.println("\t");
-            System.out.println("objects : " + objects[0]);
-            System.out.println("objects : " + objects[1]);
-            System.out.println("objects : " + objects[2]);
+            System.out.println("memberTypeList[0] : " + objects[0]);
+            System.out.println("memberTypeList[1] : " + objects[1]);
+            System.out.println("memberTypeList[2] : " + objects[2]);
             System.out.println("\t");
         }
 
@@ -102,6 +102,25 @@ public class JpqlRepository {
             System.out.println("item_name : " + item.getName());
             System.out.println("\t");
         }
+
+        String caseWhenQuery = "select " +
+                        "case when m.age <= 10 then '학생요금' " +
+                        "     when m.age <= 60 then '경로요금' " +
+                        "     else '일반요금' end as A " +
+                        ", case when m.age <= 10 then '학생요금' " +
+                        "     when m.age <= 60 then '경로요금' " +
+                        "     else '일반요금' end as B " +
+                        "from JpqlMember m";
+        List<Object[]> caseWhenResultList = em.createQuery(caseWhenQuery)
+                .getResultList();
+
+        for(Object[] objects : caseWhenResultList) {
+            System.out.println("\t");
+            System.out.println("caseWhenResultList[0] : " + objects[0]);
+            System.out.println("caseWhenResultList[1] : " + objects[1]);
+            System.out.println("\t");
+        }
+
 
     }
 }

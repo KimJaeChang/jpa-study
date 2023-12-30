@@ -434,10 +434,15 @@
         + SELECT 절도 가능(하이버네이트에서 지원)
         + <U>**FROM 절의 서브 쿼리는 현재 JPQL에서 불가능**</U>
           + <U>**조인으로 풀 수 있으면 풀어서 해결**</U>
+          
     + ### JPQL 타입 표현
       + 문자 : 'HELLO', 'She"s'
       + 숫자 : 10L(Long), 10D(Double), 10F(float)
       + Boolean : TRUE, FALSE
       + ENUM : kr.co.kjc.study.jpastudy.jpql.enums.JpqlMemberType
-      + 엔티티 타입 : TYPE(m) = Member (상속관계에서 사용)
-      
+      + 엔티티 타입 : TYPE(i) = JoinedBook (상속관계에서 사용 - DTYPE)
+    
+    + ### 조건식
+      + ![img.png](images/case_when/case_when.png)
+        + COALESCE : 하나씩 조회해서 null이 아니면 반환
+        + NULLIF : 두 값이 같으면 null 반환, 다르면 첫번째 값 반환

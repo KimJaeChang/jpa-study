@@ -14,6 +14,9 @@ public class JpqlMember {
     @GeneratedValue
     @Column(name = "JPQL_MEMBER_ID")
     private Long id;
+
+    private String sex;
+
     private String username;
     private int age;
     @ManyToOne
