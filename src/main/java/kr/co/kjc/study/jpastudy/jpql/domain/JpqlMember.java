@@ -1,9 +1,9 @@
 package kr.co.kjc.study.jpastudy.jpql.domain;
 
 import jakarta.persistence.*;
+import kr.co.kjc.study.jpastudy.jpql.enums.JpqlMemberType;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
@@ -19,4 +19,7 @@ public class JpqlMember {
     @ManyToOne
     @JoinColumn(name = "JPQL_TEAM_ID")
     private JpqlTeam jpqlTeam;
+
+    @Enumerated(EnumType.STRING)
+    private JpqlMemberType memberType;
 }

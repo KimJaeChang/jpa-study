@@ -414,12 +414,15 @@
             + 단순 값을 DTO로 바로 조회
             + ex) select new kr.co.kjc.study.jpastudy.jpql.dto.JpqlMemberDto(m.username, m.age) from JpqlMember m where m.username = :username
             + 패키지 명을 포함한 전체 클래스 명 입력
-            + 순서와 타입이 일치하는 생성자 필요   
+            + 순서와 타입이 일치하는 생성자 필요
+          
     + ### 페이징
       + setFirstResult : 조회 시작 위치 (0부터 시작)
       + setMaxResults : 조회할 데이터 수
+      
     + ### 조인
       + ![img.png](images/join/join.png)
+      
     + ### 서브 쿼리
       + 함수 : 
         + EXISTS : 서브쿼리에 결과가 존재하면 참
@@ -431,3 +434,10 @@
         + SELECT 절도 가능(하이버네이트에서 지원)
         + <U>**FROM 절의 서브 쿼리는 현재 JPQL에서 불가능**</U>
           + <U>**조인으로 풀 수 있으면 풀어서 해결**</U>
+    + ### JPQL 타입 표현
+      + 문자 : 'HELLO', 'She"s'
+      + 숫자 : 10L(Long), 10D(Double), 10F(float)
+      + Boolean : TRUE, FALSE
+      + ENUM : kr.co.kjc.study.jpastudy.jpql.enums.JpqlMemberType
+      + 엔티티 타입 : TYPE(m) = Member (상속관계에서 사용)
+      
