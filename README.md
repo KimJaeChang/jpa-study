@@ -414,5 +414,5 @@
             + 단순 값을 DTO로 바로 조회
             + ex) select new kr.co.kjc.study.jpastudy.jpql.dto.JpqlMemberDto(m.username, m.age) from JpqlMember m where m.username = :username
             + 패키지 명을 포함한 전체 클래스 명 입력
-            + 순서와 타입이 일치하는 생성자 필요 
+            + 순서와 타입이 일치하는 생성자 필요   
         
