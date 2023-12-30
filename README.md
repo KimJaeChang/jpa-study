@@ -446,3 +446,17 @@
       + ![img.png](images/case_when/case_when.png)
         + COALESCE : 하나씩 조회해서 null이 아니면 반환
         + NULLIF : 두 값이 같으면 null 반환, 다르면 첫번째 값 반환
+    
+    + ### JPQL 기본 함수
+      + CONCAT
+      + SUBSTRING
+      + TRIM
+      + LOWER, UPPER
+      + LENGTH
+      + LOCATE
+      + ABS, SORT, MOD
+      + SIZE, INDEX(JPA 용도)
+    
+    + ### 사용자 정의 함수
+      + 하이버네이트는 사용전 방언에 추가해야 한다.
+        + 사용하는 DB 방언을 상속받고, 사용자 정의 함수를 등록한다.
