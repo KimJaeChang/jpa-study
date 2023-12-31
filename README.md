@@ -462,7 +462,7 @@
         + 사용하는 DB 방언을 상속받고, 사용자 정의 함수를 등록한다.
 
     + ### 경로 표현식
-      + (.)점을 찍어 객체 그래프를 탐색하는 것
+      + 정의 : (.)점을 찍어 객체 그래프를 탐색하는 것
         + ![load_ expression.png](images%2Fload_expression%2Fload_%20expression.png)
       + 종류 : 
         + 상태 필드 : 단순히 값을 저장하기 위한 필드
@@ -488,5 +488,19 @@
         + 항상 내부조인
         + 컬렉션은 경로 탐색의 끝, 명시적 조인을 통해 별칭을 얻어야 함.
         + 경로 탐색은 주로 SELECT, WHERE 절에서 사용하지만 묵시적 조인으로 인해 
-          SQL의 FROM (JOIN) 절에 영향을 줌.    
-    
+          SQL의 FROM (JOIN) 절에 영향을 줌.
+        
+    + ### Fetch Join (페치 조인)
+      + 정의 :
+        + SQL 조인 종류가 아니다.
+        + JPQL 에서 성능 최적화를 위해 제공하는 기능
+        + 연관된 엔티티나 컬렉션을 SQL 한번에 함께 조회하는 기능
+        + <U>**join fetch**</U> 명령어 사용
+        + 페치 조인 := [LEFT | INNER] JOIN FETCH 조인 경로
+      + Distinct
+        + SQL의 DISTINCT는 중복된 결과를 제거하는 명령
+        + JPQL의 DISTINCT 2가지 기능 제공
+          1. SQL에 DISTINCT를 추가
+          2. 애플리케이션에서 엔티티 중복 제거
+      ![fetch_join_distinct.png](src%2Fmain%2Fjava%2Fkr%2Fco%2Fkjc%2Fstudy%2Fjpastudy%2Fjpa%2Ffetch_join%2Ffetch_join_distinct.png)
+      

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import kr.co.kjc.study.jpastudy.jpql.enums.JpqlMemberType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -19,7 +20,8 @@ public class JpqlMember {
 
     private String username;
     private int age;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "JPQL_TEAM_ID")
     private JpqlTeam jpqlTeam;
 
