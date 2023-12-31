@@ -1,6 +1,6 @@
 + ## JPA
     + ### 구동 방식
-        1. Build 파일을 통해서 JPA 인터페이스를 구현할 구현체 클래스인 Persistence를 생성
+        1. Build 파일을 통해서 JPA 인터페이`스를 구현할 구현체 클래스인 Persistence를 생성
         2. 생성한 Persistence로 META-INF/Persistence.xml라는 설정파일 정보를 읽은 후 EntityManagerFactory를 생성
         3. 생성한 EntityManagerFactory로 EntityManager를 생성해서 DB 접근
     + ### Entity
@@ -543,3 +543,16 @@
             + > select count(m) from Member m where m = :member
         + [SQL]
           + > select count(m.id) as cnt from Member m
+
+    + ### NamedQuery
+      + 엔티티에 @NamedQuery 사용
+        + <U>**Spring Data JPA는 repository에서 @Query**</U> 사용
+      + 미리 정의해서 이름을 부여해두고 사용하는 JPQL
+      + 정적 쿼리
+      + 어노테이션, XML에 정의
+      + 애플리케이션 로딩 시점에 초기화 후 재사용
+      + <U>**애플리케이션 로딩 시점에 쿼리를 검증**</U>
+        + 엔티티에 정의
+          + ![named_query_entity.png](images%2Fnamed_query%2Fnamed_query_entity.png)
+        + XML에 정의
+          + ![named_query_xml.png](images%2Fnamed_query%2Fnamed_query_xml.png)
