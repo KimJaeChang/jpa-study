@@ -524,13 +524,22 @@
         + 조회 대상을 특정 자식으로 한정
           + ex) item 중에 Book, Movie를 조회해라
         + [JPQL]
-          + select i from JoinedItem i where TYPE(i) IN (JoinedBook, JoinedMovie)
+          + > select i from JoinedItem i where TYPE(i) IN (JoinedBook, JoinedMovie)
         + [SQL]
-          + select i from JoinedItem i where i.DIS_TYPE in ('B', 'M')
+          + > select i from JoinedItem i where i.DIS_TYPE in ('B', 'M')
       + TREAT(JPA 2.1)
           + ex) 부모인 item과 자식 Book이 있다.
         + [JPQL]
-        + select i from JoinedItem i where TREAT(i as JoindBook).author = 'kim'
+          + > select i from JoinedItem i where TREAT(i as JoindBook).author = 'kim'
         + [SQL]
-        + select i from JoinedItem i where i.DIS_TYPE = 'B' and i.author = 'kim'
-        
+          + > select i from JoinedItem i where i.DIS_TYPE = 'B' and i.author = 'kim'
+
+    + ### 엔티티 직접 사용 - 기본키 값
+      + JPQL에서 엔티티를 직접 사용하면 SQL에서 해당 엔티티의 기본 키 값을 사용
+        + [JPQL]
+          + 엔티티의 아이디를 사용
+            + > select count(m.id) from Member m 
+          + 엔티티를 직접 사용
+            + > select count(m) from Member m
+        + [SQL]
+          + > select count(m.id) as cnt from Member m
