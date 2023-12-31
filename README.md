@@ -555,4 +555,4 @@
         + 엔티티에 정의
           + ![named_query_entity.png](images%2Fnamed_query%2Fnamed_query_entity.png)
         + XML에 정의
-          + ![named_query_xml.png](images%2Fnamed_query%2Fnamed_query_xml.png)
+          + ![named_query_xml.png](images%2Fnamed_query%2Fnamed_query_xml.png) 
