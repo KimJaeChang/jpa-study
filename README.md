@@ -502,5 +502,20 @@
         + JPQL의 DISTINCT 2가지 기능 제공
           1. SQL에 DISTINCT를 추가
           2. 애플리케이션에서 엔티티 중복 제거
-      ![fetch_join_distinct.png](src%2Fmain%2Fjava%2Fkr%2Fco%2Fkjc%2Fstudy%2Fjpastudy%2Fjpa%2Ffetch_join%2Ffetch_join_distinct.png)
-      
+          ![fetch_join_distinct.png](src%2Fmain%2Fjava%2Fkr%2Fco%2Fkjc%2Fstudy%2Fjpastudy%2Fjpa%2Ffetch_join%2Ffetch_join_distinct.png)
+      + 특징과 한계 : 
+        + <U>**페치 조인 대상에는 별칭(Alias)을 줄 수 없다.**</U>
+          + 하이버네이트는 가능, 가급적이면 사용을 하지 않는걸 지향
+        + <U>**둘 이상의 컬렉션은 페치 조인을 할 수 없다.**</U>
+        + <U>**컬렉션을 페치 조인 하면 API(setFirstResult, setMaxResults)를 사용 할 수 없다.**</U>
+          + 일대일, 다대다 같은 단일 값 연관 필드들은 페치 조인해도 페이징 가능
+          + <span style="color:red"><U>**하이버네이트는 경고 로그를 남기고 메모리에서 페이(매우 위험)**</U></span>
+            + Join된 모든 데이터를 메모리에 올린 다음에 페이징을 실행하기 떼문에 부하가 걸릴 가능성이 매우 높다.
+        + 해결 방법 : 
+          + <U>**@BatchSize**</U>로 조정
+          + <U>**application.yml 파일에 spring.jpa.properties.hibernate.default_batch_fetch_size**</U>로 조정
+        + 정리 : 
+          + 모든 것을 페치 조인으로 해결 할 수는 없음.
+          + 페치 조인은 객체 그래프를 유지할 때 사용하면 효과적
+            + 여러 테이블을 조인해서 엔티티가 가진 모양이 아닌 전혀 다른 결과를 내야하면,  
+              페치 조인보다는 일반 조인을 사용하고 필요한 데이터들만 조회해서 DTO로 반환하는 것이 효과적
