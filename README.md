@@ -538,8 +538,8 @@
       + JPQL에서 엔티티를 직접 사용하면 SQL에서 해당 엔티티의 기본 키 값을 사용
         + [JPQL]
           + 엔티티의 아이디를 사용
-            + > select count(m.id) from Member m 
+            + > select count(m.id) from Member m where m.id = :id
           + 엔티티를 직접 사용
-            + > select count(m) from Member m
+            + > select count(m) from Member m where m = :member
         + [SQL]
           + > select count(m.id) as cnt from Member m
