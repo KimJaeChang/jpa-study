@@ -539,7 +539,7 @@
         + [JPQL]
           + 엔티티의 아이디를 사용
             + > select count(m.id) from Member m where m.id = :id
-          + 엔티티를 직접 사용
+          + 엔티티를 직접 사용 (기본 키 매칭)
             + > select count(m) from Member m where m = :member
         + [SQL]
           + > select count(m.id) as cnt from Member m
