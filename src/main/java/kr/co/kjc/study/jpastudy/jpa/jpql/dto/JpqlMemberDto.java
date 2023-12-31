@@ -1,4 +1,4 @@
-package kr.co.kjc.study.jpastudy.jpql.dto;
+package kr.co.kjc.study.jpastudy.jpa.jpql.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

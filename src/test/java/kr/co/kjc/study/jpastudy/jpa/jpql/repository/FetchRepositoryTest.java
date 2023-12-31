@@ -1,8 +1,6 @@
-package kr.co.kjc.study.jpastudy.jpql.repository;
+package kr.co.kjc.study.jpastudy.jpa.jpql.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import kr.co.kjc.study.jpastudy.jpql.service.FetchService;
+import kr.co.kjc.study.jpastudy.jpa.jpql.service.FetchService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

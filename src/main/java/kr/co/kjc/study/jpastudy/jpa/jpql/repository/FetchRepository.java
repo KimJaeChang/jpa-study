@@ -1,10 +1,10 @@
-package kr.co.kjc.study.jpastudy.jpql.repository;
+package kr.co.kjc.study.jpastudy.jpa.jpql.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.List;
-import kr.co.kjc.study.jpastudy.jpql.domain.JpqlMember;
-import kr.co.kjc.study.jpastudy.jpql.domain.JpqlTeam;
+import kr.co.kjc.study.jpastudy.jpa.jpql.domain.JpqlMember;
+import kr.co.kjc.study.jpastudy.jpa.jpql.domain.JpqlTeam;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,10 +1,9 @@
-package kr.co.kjc.study.jpastudy.jpql.domain;
+package kr.co.kjc.study.jpastudy.jpa.jpql.domain;
 
 import jakarta.persistence.*;
-import kr.co.kjc.study.jpastudy.jpql.enums.JpqlMemberType;
+import kr.co.kjc.study.jpastudy.jpa.jpql.enums.JpqlMemberType;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter

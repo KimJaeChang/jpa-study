@@ -1,6 +1,6 @@
-package kr.co.kjc.study.jpastudy.jpql.service;
+package kr.co.kjc.study.jpastudy.jpa.jpql.service;
 
-import kr.co.kjc.study.jpastudy.jpql.repository.FetchRepository;
+import kr.co.kjc.study.jpastudy.jpa.jpql.repository.FetchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

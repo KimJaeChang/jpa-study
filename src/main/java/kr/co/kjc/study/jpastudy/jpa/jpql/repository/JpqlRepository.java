@@ -1,4 +1,4 @@
-package kr.co.kjc.study.jpastudy.jpql.repository;
+package kr.co.kjc.study.jpastudy.jpa.jpql.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -6,9 +6,9 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import kr.co.kjc.study.jpastudy.jpa.join_strategy.joined.domain.JoinedBook;
 import kr.co.kjc.study.jpastudy.jpa.join_strategy.joined.domain.JoinedItem;
-import kr.co.kjc.study.jpastudy.jpql.domain.JpqlMember;
-import kr.co.kjc.study.jpastudy.jpql.dto.JpqlMemberDto;
-import kr.co.kjc.study.jpastudy.jpql.enums.JpqlMemberType;
+import kr.co.kjc.study.jpastudy.jpa.jpql.domain.JpqlMember;
+import kr.co.kjc.study.jpastudy.jpa.jpql.dto.JpqlMemberDto;
+import kr.co.kjc.study.jpastudy.jpa.jpql.enums.JpqlMemberType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
