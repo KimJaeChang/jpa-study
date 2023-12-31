@@ -460,3 +460,33 @@
     + ### 사용자 정의 함수 (Dialect)
       + 하이버네이트는 사용전 방언에 추가해야 한다.
         + 사용하는 DB 방언을 상속받고, 사용자 정의 함수를 등록한다.
+
+    + ### 경로 표현식
+      + (.)점을 찍어 객체 그래프를 탐색하는 것
+        + ![load_ expression.png](images%2Fload_expression%2Fload_%20expression.png)
+      + 종류 : 
+        + 상태 필드 : 단순히 값을 저장하기 위한 필드
+          + 특징 : 경로 탐색의 끝, 탐색불가
+        + 연관 필드 : 연관관계를 위한 필드
+          + 단일 값 연관필드 : 
+            + 특징 : 묵시적 내부 조인(Inner Join) 발생, 탐색가능
+            + m.joinedTeam 의 하위필드 까지 탐색 가능
+              + > select m.joinedTeam from JoinedMember m 
+            + m.joinedTeam.name 하위필드 탐색 가능
+              + > select m.joinedTeam.name from JoinedMember m
+            + <U>**위와 같이 joinedTeam의 name필드를 탐색할 수 있다.**</U>
+            + ex) @ManuToOne, @OneToOne, 대상이 엔티티(m.team)
+          + 컬렉션 값 연관필드 : 
+            + 특징 : 묵시적 내부 조인 발생, 탐색불가
+              + 명시적 조인 적용 전
+                + > select t.members from JoinedTeam t
+              + 명시적 조인 적용 후 
+                + > select m.username From JoinedTeam t join t.members m
+                + <U>**위와 같이 FROM 절에서 명시적 조인을 통해 별칭을 얻으면 별칭을 통해 탐색 가능**</U>
+            + ex) @OneToMany, @ManyToMany, 대상이 컬렉션(m.orders)
+      + 주의 사항 :
+        + 항상 내부조인
+        + 컬렉션은 경로 탐색의 끝, 명시적 조인을 통해 별칭을 얻어야 함.
+        + 경로 탐색은 주로 SELECT, WHERE 절에서 사용하지만 묵시적 조인으로 인해 
+          SQL의 FROM (JOIN) 절에 영향을 줌.    
+    
