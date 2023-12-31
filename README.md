@@ -519,3 +519,18 @@
           + 페치 조인은 객체 그래프를 유지할 때 사용하면 효과적
             + 여러 테이블을 조인해서 엔티티가 가진 모양이 아닌 전혀 다른 결과를 내야하면,  
               페치 조인보다는 일반 조인을 사용하고 필요한 데이터들만 조회해서 DTO로 반환하는 것이 효과적
+    + ### 다형성 쿼리
+      + TYPE
+        + 조회 대상을 특정 자식으로 한정
+          + ex) item 중에 Book, Movie를 조회해라
+        + [JPQL]
+          + select i from JoinedItem i where TYPE(i) IN (JoinedBook, JoinedMovie)
+        + [SQL]
+          + select i from JoinedItem i where i.DIS_TYPE in ('B', 'M')
+      + TREAT(JPA 2.1)
+          + ex) 부모인 item과 자식 Book이 있다.
+        + [JPQL]
+        + select i from JoinedItem i where TREAT(i as JoindBook).author = 'kim'
+        + [SQL]
+        + select i from JoinedItem i where i.DIS_TYPE = 'B' and i.author = 'kim'
+        
