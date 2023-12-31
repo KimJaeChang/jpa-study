@@ -556,4 +556,22 @@
           + 엔티티에 정의
               + ![named_query_entity.png](images%2Fnamed_query%2Fnamed_query_entity.png)
           + XML에 정의
-              + ![named_query_xml.png](images%2Fnamed_query%2Fnamed_query_xml.png) 
+              + ![named_query_xml.png](images%2Fnamed_query%2Fnamed_query_xml.png)
+    
+    + ### 벌크 연산
+      + 정의 : 
+        + 쿼리 한번으로 여러 테이블 로우 변경(엔티티)
+        + excuteUpdate()의 결과는 영향받은 엔티티 수 반환
+        + UPDATE, DELETE 지원
+        + INSERT(insert into ... select, 하이버 네이트 지원)
+        + ![bulk_calc.png](images%2Fbulk_calc%2Fbulk_calc.png)
+      + 주의점 : 
+        + <span style="color:red"><U>**벌크 연산은 영속성 컨텍스트를 무시하고 데이터베이스에 직접 쿼리**</U></span>
+        + 벌크 연산을 먼저 실행
+        + 벌크 연산을 수행 후 영속성 컨텍스트 초기화
+        + update 후 em.find()로 다시 엔티티를 조회해도 영속성 컨텍스트에 반영되지 않으면 값이 맞지 않는다.
+      + 해결방법 : 
+        + 벌크 연산을 먼저 실행 후, 영속성 컨텍스를 이용한다.
+        + <U>**영속성 컨텍스트를 비운 후 벌크 연산을 한다.**</U>  
+          + <span style="color:yellow"><U>**영속성 컨텍스트가 비어 있으니 벌크 연산 후 조회하면 무조건 DB에서 조회하게 되어있다.**</U></span>
+          + > Spring Data JPA 에서는 '@Modifying(clearAutomatically=true)' 애노테이션 지원
