@@ -37,14 +37,19 @@
           1. 카멜 케이스 -> 언더스코어(memberPoint -> member_point)
           2. .(점) -> _(언더스코어)
           3. 대문자 -> 소문자
-        + @Id : 기본키(PK) 매핑
-        + @Column : 컬럼 매핑
-            + name : 컬럼명 직접 매핑 가능
-        + @Enumerrated : EnumType 매핑
-            + EnumType.ORDINAL : enum 순서를 DB에 저장, default
-            + EnumType.STRING : enum 이름을 DB에 저장
-        + @Temporal : sql의 DateType 매핑
-            + LocalDate, LocalDateTime : Java8 부터 매핑 가능
+      + 적용 2단계
+        1. 논리명 생성 : 명시적으로 컬럼, 테이블 명을 직접 적지 않으면 <U>**ImplicitNamingStrategy**</U> 사용 
+           + > spring.jpa.hibernate.naming.implicit-strategy : 테이블이나, 컬럼명을 명시하지 않을 때 논리명 적용
+        2. 물리명 적용
+           + > spring.jpa.hibernate.naming.physical-strategy : 모든 논리명에 적용됨, 실제 테이블에 적용 (username -> usernm 등으로 회사 룰로 바꿀 수 있음)
+      + @Id : 기본키(PK) 매핑
+      + @Column : 컬럼 매핑
+          + name : 컬럼명 직접 매핑 가능
+      + @Enumerrated : EnumType 매핑
+          + EnumType.ORDINAL : enum 순서를 DB에 저장, default
+          + EnumType.STRING : enum 이름을 DB에 저장
+      + @Temporal : sql의 DateType 매핑
+          + LocalDate, LocalDateTime : Java8 부터 매핑 가능
     + ### 연관관계 매핑
       + 설명 :
         + ### 단방향 연관관계
