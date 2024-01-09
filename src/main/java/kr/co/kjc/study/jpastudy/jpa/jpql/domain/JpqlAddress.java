@@ -1,4 +1,4 @@
-package kr.co.kjc.study.jpastudy.jpql.domain;
+package kr.co.kjc.study.jpastudy.jpa.jpql.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

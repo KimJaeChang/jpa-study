@@ -1,6 +1,6 @@
 + ## JPA
     + ### 구동 방식
-        1. Build 파일을 통해서 JPA 인터페이스를 구현할 구현체 클래스인 Persistence를 생성
+        1. Build 파일을 통해서 JPA 인터페이`스를 구현할 구현체 클래스인 Persistence를 생성
         2. 생성한 Persistence로 META-INF/Persistence.xml라는 설정파일 정보를 읽은 후 EntityManagerFactory를 생성
         3. 생성한 EntityManagerFactory로 EntityManager를 생성해서 DB 접근
     + ### Entity
@@ -464,3 +464,118 @@
     + ### 사용자 정의 함수 (Dialect)
       + 하이버네이트는 사용전 방언에 추가해야 한다.
         + 사용하는 DB 방언을 상속받고, 사용자 정의 함수를 등록한다.
+
+    + ### 경로 표현식
+      + 정의 : (.)점을 찍어 객체 그래프를 탐색하는 것
+          + ![load_ expression.png](images%2Fload_expression%2Fload_%20expression.png)
+      + 종류 :
+          + 상태 필드 : 단순히 값을 저장하기 위한 필드
+              + 특징 : 경로 탐색의 끝, 탐색불가
+          + 연관 필드 : 연관관계를 위한 필드
+              + 단일 값 연관필드 :
+                  + 특징 : 묵시적 내부 조인(Inner Join) 발생, 탐색가능
+                  + m.joinedTeam 의 하위필드 까지 탐색 가능
+                      + > select m.joinedTeam from JoinedMember m
+                  + m.joinedTeam.name 하위필드 탐색 가능
+                      + > select m.joinedTeam.name from JoinedMember m
+                  + <U>**위와 같이 joinedTeam의 name필드를 탐색할 수 있다.**</U>
+                  + ex) @ManuToOne, @OneToOne, 대상이 엔티티(m.team)
+              + 컬렉션 값 연관필드 :
+                  + 특징 : 묵시적 내부 조인 발생, 탐색불가
+                      + 명시적 조인 적용 전
+                          + > select t.members from JoinedTeam t
+                      + 명시적 조인 적용 후
+                          + > select m.username From JoinedTeam t join t.members m
+                          + <U>**위와 같이 FROM 절에서 명시적 조인을 통해 별칭을 얻으면 별칭을 통해 탐색 가능**</U>
+                  + ex) @OneToMany, @ManyToMany, 대상이 컬렉션(m.orders)
+      + 주의 사항 :
+          + 항상 내부조인
+          + 컬렉션은 경로 탐색의 끝, 명시적 조인을 통해 별칭을 얻어야 함.
+          + 경로 탐색은 주로 SELECT, WHERE 절에서 사용하지만 묵시적 조인으로 인해
+            SQL의 FROM (JOIN) 절에 영향을 줌.
+
+    + ### Fetch Join (페치 조인)
+      + 정의 :
+          + SQL 조인 종류가 아니다.
+          + JPQL 에서 성능 최적화를 위해 제공하는 기능
+          + 연관된 엔티티나 컬렉션을 SQL 한번에 함께 조회하는 기능
+          + <U>**join fetch**</U> 명령어 사용
+          + 페치 조인 := [LEFT | INNER] JOIN FETCH 조인 경로
+      + Distinct
+          + SQL의 DISTINCT는 중복된 결과를 제거하는 명령
+          + JPQL의 DISTINCT 2가지 기능 제공
+              1. SQL에 DISTINCT를 추가
+              2. 애플리케이션에서 엔티티 중복 제거
+                 ![fetch_join_distinct.png](src%2Fmain%2Fjava%2Fkr%2Fco%2Fkjc%2Fstudy%2Fjpastudy%2Fjpa%2Ffetch_join%2Ffetch_join_distinct.png)
+      + 특징과 한계 :
+          + <U>**페치 조인 대상에는 별칭(Alias)을 줄 수 없다.**</U>
+              + 하이버네이트는 가능, 가급적이면 사용을 하지 않는걸 지향
+          + <U>**둘 이상의 컬렉션은 페치 조인을 할 수 없다.**</U>
+          + <U>**컬렉션을 페치 조인 하면 API(setFirstResult, setMaxResults)를 사용 할 수 없다.**</U>
+              + 일대일, 다대다 같은 단일 값 연관 필드들은 페치 조인해도 페이징 가능
+              + <span style="color:red"><U>**하이버네이트는 경고 로그를 남기고 메모리에서 페이(매우 위험)**</U></span>
+                  + Join된 모든 데이터를 메모리에 올린 다음에 페이징을 실행하기 떼문에 부하가 걸릴 가능성이 매우 높다.
+          + 해결 방법 :
+              + <U>**@BatchSize**</U>로 조정
+              + <U>**application.yml 파일에 spring.jpa.properties.hibernate.default_batch_fetch_size**</U>로 조정
+          + 정리 :
+              + 모든 것을 페치 조인으로 해결 할 수는 없음.
+              + 페치 조인은 객체 그래프를 유지할 때 사용하면 효과적
+                  + 여러 테이블을 조인해서 엔티티가 가진 모양이 아닌 전혀 다른 결과를 내야하면,  
+                    페치 조인보다는 일반 조인을 사용하고 필요한 데이터들만 조회해서 DTO로 반환하는 것이 효과적
+                
+    + ### 다형성 쿼리
+      + TYPE
+          + 조회 대상을 특정 자식으로 한정
+              + ex) item 중에 Book, Movie를 조회해라
+          + [JPQL]
+              + > select i from JoinedItem i where TYPE(i) IN (JoinedBook, JoinedMovie)
+          + [SQL]
+              + > select i from JoinedItem i where i.DIS_TYPE in ('B', 'M')
+      + TREAT(JPA 2.1)
+          + ex) 부모인 item과 자식 Book이 있다.
+          + [JPQL]
+              + > select i from JoinedItem i where TREAT(i as JoindBook).author = 'kim'
+          + [SQL]
+              + > select i from JoinedItem i where i.DIS_TYPE = 'B' and i.author = 'kim'
+
+    + ### 엔티티 직접 사용 - 기본키 값
+      + JPQL에서 엔티티를 직접 사용하면 SQL에서 해당 엔티티의 기본 키 값을 사용
+          + [JPQL]
+              + 엔티티의 아이디를 사용
+                  + > select count(m.id) from Member m where m.id = :id
+              + 엔티티를 직접 사용 (기본 키 매칭)
+                  + > select count(m) from Member m where m = :member
+          + [SQL]
+              + > select count(m.id) as cnt from Member m
+
+    + ### NamedQuery
+      + 엔티티에 @NamedQuery 사용
+          + <U>**Spring Data JPA는 repository에서 @Query**</U> 사용
+      + 미리 정의해서 이름을 부여해두고 사용하는 JPQL
+      + 정적 쿼리
+      + 어노테이션, XML에 정의
+      + 애플리케이션 로딩 시점에 초기화 후 재사용
+      + <U>**애플리케이션 로딩 시점에 쿼리를 검증**</U>
+          + 엔티티에 정의
+              + ![named_query_entity.png](images%2Fnamed_query%2Fnamed_query_entity.png)
+          + XML에 정의
+              + ![named_query_xml.png](images%2Fnamed_query%2Fnamed_query_xml.png)
+    
+    + ### 벌크 연산
+      + 정의 : 
+        + 쿼리 한번으로 여러 테이블 로우 변경(엔티티)
+        + excuteUpdate()의 결과는 영향받은 엔티티 수 반환
+        + UPDATE, DELETE 지원
+        + INSERT(insert into ... select, 하이버 네이트 지원)
+        + ![bulk_calc.png](images%2Fbulk_calc%2Fbulk_calc.png)
+      + 주의점 : 
+        + <span style="color:red"><U>**벌크 연산은 영속성 컨텍스트를 무시하고 데이터베이스에 직접 쿼리**</U></span>
+        + 벌크 연산을 먼저 실행
+        + 벌크 연산을 수행 후 영속성 컨텍스트 초기화
+        + update 후 em.find()로 다시 엔티티를 조회해도 영속성 컨텍스트에 반영되지 않으면 값이 맞지 않는다.
+      + 해결방법 : 
+        + 벌크 연산을 먼저 실행 후, 영속성 컨텍스를 이용한다.
+        + <U>**영속성 컨텍스트를 비운 후 벌크 연산을 한다.**</U>  
+          + <span style="color:yellow"><U>**영속성 컨텍스트가 비어 있으니 벌크 연산 후 조회하면 무조건 DB에서 조회하게 되어있다.**</U></span>
+          + > Spring Data JPA 에서는 '@Modifying(clearAutomatically=true)' 애노테이션 지원

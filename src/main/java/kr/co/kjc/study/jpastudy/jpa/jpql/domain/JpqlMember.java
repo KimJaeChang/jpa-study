@@ -1,7 +1,7 @@
-package kr.co.kjc.study.jpastudy.jpql.domain;
+package kr.co.kjc.study.jpastudy.jpa.jpql.domain;
 
 import jakarta.persistence.*;
-import kr.co.kjc.study.jpastudy.jpql.enums.JpqlMemberType;
+import kr.co.kjc.study.jpastudy.jpa.jpql.enums.JpqlMemberType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +19,8 @@ public class JpqlMember {
 
     private String username;
     private int age;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "JPQL_TEAM_ID")
     private JpqlTeam jpqlTeam;
 
