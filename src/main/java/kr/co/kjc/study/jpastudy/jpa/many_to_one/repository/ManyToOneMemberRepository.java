@@ -26,8 +26,8 @@ public class ManyToOneMemberRepository {
 
         ManyToOneMember member = new ManyToOneMember();
         member.setUsername("member1");
-        member.changeManyToManyTeam(team);          // 양방향 매핑할 땐 양쪽에다가 값을 세팅하는게 낫다.
-        // ManyToManyMember.changeManyToManyTeam 처럼 연관관계 편의 메소드를 지정하면 관리하기 편한다
+        member.changeManyToOneTeam(team);          // 양방향 매핑할 땐 양쪽에다가 값을 세팅하는게 낫다.
+        // ManyToManyMember.changeManyToOneTeam 처럼 연관관계 편의 메소드를 지정하면 관리하기 편한다
         em.persist(member);
 
 //        team.setManyToManyMembers().add(member); // 양방향 매핑할 땐 양쪽에다가 값을 세팅하는게 낫다.;
