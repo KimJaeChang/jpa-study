@@ -45,7 +45,7 @@
       + @Id : 기본키(PK) 매핑
       + @Column : 컬럼 매핑
           + name : 컬럼명 직접 매핑 가능
-      + @Enumerrated : EnumType 매핑
+      + @Enumerated : EnumType 매핑
           + EnumType.ORDINAL : enum 순서를 DB에 저장, default
           + EnumType.STRING : enum 이름을 DB에 저장
       + @Temporal : sql의 DateType 매핑
