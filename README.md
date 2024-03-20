@@ -472,7 +472,7 @@
 
     + ### 경로 표현식
       + 정의 : (.)점을 찍어 객체 그래프를 탐색하는 것
-          + ![load_ expression.png](images%2Fload_expression%2Fload_%20expression.png)
+          + ![load_ expression.png](images/load_expression/load_%20expression.png)
       + 종류 :
           + 상태 필드 : 단순히 값을 저장하기 위한 필드
               + 특징 : 경로 탐색의 끝, 탐색불가
@@ -511,7 +511,7 @@
           + JPQL의 DISTINCT 2가지 기능 제공
               1. SQL에 DISTINCT를 추가
               2. 애플리케이션에서 엔티티 중복 제거
-                 ![fetch_join_distinct.png](src%2Fmain%2Fjava%2Fkr%2Fco%2Fkjc%2Fstudy%2Fjpastudy%2Fjpa%2Ffetch_join%2Ffetch_join_distinct.png)
+                 ![fetch_join_distinct.png](src/main/java/kr/co/kjc/study/jpastudy/jpa/fetch_join/fetch_join_distinct.png)
       + 특징과 한계 :
           + <U>**페치 조인 대상에는 별칭(Alias)을 줄 수 없다.**</U>
               + 하이버네이트는 가능, 가급적이면 사용을 하지 않는걸 지향
@@ -563,9 +563,9 @@
       + 애플리케이션 로딩 시점에 초기화 후 재사용
       + <U>**애플리케이션 로딩 시점에 쿼리를 검증**</U>
           + 엔티티에 정의
-              + ![named_query_entity.png](images%2Fnamed_query%2Fnamed_query_entity.png)
+              + ![named_query_entity.png](images/named_query/named_query_entity.png)
           + XML에 정의
-              + ![named_query_xml.png](images%2Fnamed_query%2Fnamed_query_xml.png)
+              + ![named_query_xml.png](images/named_query/named_query_xml.png)
     
     + ### 벌크 연산
       + 정의 : 
@@ -573,7 +573,7 @@
         + excuteUpdate()의 결과는 영향받은 엔티티 수 반환
         + UPDATE, DELETE 지원
         + INSERT(insert into ... select, 하이버 네이트 지원)
-        + ![bulk_calc.png](images%2Fbulk_calc%2Fbulk_calc.png)
+        + ![bulk_calc.png](images/bulk_calc/bulk_calc.png)
       + 주의점 : 
         + <span style="color:red"><U>**벌크 연산은 영속성 컨텍스트를 무시하고 데이터베이스에 직접 쿼리**</U></span>
         + 벌크 연산을 먼저 실행
@@ -584,3 +584,6 @@
         + <U>**영속성 컨텍스트를 비운 후 벌크 연산을 한다.**</U>  
           + <span style="color:yellow"><U>**영속성 컨텍스트가 비어 있으니 벌크 연산 후 조회하면 무조건 DB에서 조회하게 되어있다.**</U></span>
           + > Spring Data JPA 에서는 '@Modifying(clearAutomatically=true)' 애노테이션 지원
+            
+
++ #### 김영한님의 자바 ORM 표준 JPA 프로그래밍을 수강하면서 정리한 내용입니다. 
