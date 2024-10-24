@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: jpastudy
   # H2 Setting Info (H2 Console에 접속하기 위한 설정정보 입력)
   ############# local mode #############
 #  h2:
@@ -25,7 +27,7 @@ spring:
     password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         show_sql: true
@@ -34,6 +36,13 @@ spring:
 #        default_batch_fetch_size: 30
 #        jdbc:
 #          batch_size: 100
+  sleuth:
+    jdbc:
+      p6spy:
+        tracing:
+          include-parameter-values: true
+
+
 # 로그 레벨 설정
 logging:
   level:
@@ -42,8 +51,8 @@ logging:
     # jpa hibernate가 생성하는 sql이 로거를 통해서 찍히도록 하는 설정
   charset:
     console: UTF-8
-  file:
-    path: /logs
+#  file:
+#    path: /logs
 #    org.hibernate.SQL: debug
 #    org.hibernate.type: trace # 실제 들어가는 파라미터값 찍어주는 설정
 
@@ -52,4 +61,18 @@ decorator.datasource.p6spy:
   enable-logging: true
   multiline: true
   logging: slf4j
-  tracing.include-parameter-values: true
+#  tracing.include-parameter-values: true # spring.sleuth.jdbc.p6spy.tracing.include-parameter-values 로 대체
+
+  # Swagger Doc
+springdoc:
+  version: v1.0.0
+  packages-to-scan: kr.co.kjc.study.jpastudy
+  swagger-ui:
+    path: /api-docs
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /api-docs/json
+    groups:
+      enabled: true
+  override-with-generic-response: true
