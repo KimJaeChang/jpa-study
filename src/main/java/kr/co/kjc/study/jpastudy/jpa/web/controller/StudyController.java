@@ -4,6 +4,7 @@ import kr.co.kjc.study.jpastudy.jpa.embedded.domain.EmbeddedMember;
 import kr.co.kjc.study.jpastudy.jpa.embedded.domain.EmbeddedTeam;
 import kr.co.kjc.study.jpastudy.jpa.embedded.service.EmbeddedMemberService;
 import kr.co.kjc.study.jpastudy.jpa.embedded.service.EmbeddedTeamService;
+import kr.co.kjc.study.jpastudy.jpa.one_to_one.service.OneToOneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class StudyController {
     private final EmbeddedMemberService memberService;
     private final EmbeddedTeamService teamService;
+    private final OneToOneService oneToOneService;
 
     @GetMapping("/member")
     public ResponseEntity<EmbeddedMember> member(@RequestParam String userId){
@@ -48,6 +50,18 @@ public class StudyController {
     @GetMapping("/create-collection")
     public ResponseEntity<HttpStatus> createCollection(){
         memberService.createCollection();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/v1/create-one-to-one")
+    public ResponseEntity<HttpStatus> createOneToOneV1(){
+        oneToOneService.create();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/v2/create-one-to-one")
+    public ResponseEntity<HttpStatus> createOneToOneV2(){
+        oneToOneService.createV2();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -8,33 +8,17 @@ import org.hibernate.engine.jdbc.internal.FormatStyle;
 
 public class P6spySqlFormatConfig implements MessageFormattingStrategy {
 
-  private static String getServiceNameFromStackTrace() {
-    StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-
-    for (StackTraceElement element : stackTrace) {
-      // 예: "com.example.service" 패키지의 클래스를 서비스로 가정
-      if (element.getClassName().contains("service")) {
-        return element.getClassName() + "." + element.getMethodName();
-      }
-    }
-    return "UnknownService";
-  }
-
   @Override
   public String formatMessage(int connectionId, String now, long elapsed, String category,
       String prepared, String sql, String url) {
-
-    String serviceInfo = getServiceNameFromStackTrace();
-
     sql = formatSql(category, sql);
-    return serviceInfo + " | " + now + " | " + elapsed + "ms | " + category + " | connection " + connectionId + " | "
+    return now + " | " + elapsed + "ms | " + category + " | connection " + connectionId + " | "
         + P6Util.singleLine(prepared) + sql;
   }
 
   private String formatSql(String category, String sql) {
-
     if (sql == null || sql.trim().equals("")) {
-        return sql;
+      return sql;
     }
 
     // Only format Statement, distinguish DDL And DML
